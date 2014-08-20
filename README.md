@@ -1,12 +1,13 @@
 gentoo-overlay
 ==============
 
+This is a collection of random ebuilds I've written or modified.
+
 To add this to layman, create the following file:
 
 /etc/layman/overlays/sparky-bluefang.xml
-
 ```xml
-<?xml version="1.0" ?>                                                                                                     
+<?xml version="1.0" ?>
 <repositories version="1.0">
 	<repo quality="experimental" status="unofficial">
 		<name>sparky-bluefang</name>
@@ -21,5 +22,7 @@ To add this to layman, create the following file:
 ```
 
 Then run
+```
+$ layman -a sparky-bluefang
+```
 
-    $ layman -a sparky-bluefang
