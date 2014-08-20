@@ -1,0 +1,95 @@
+diff -rupN pyrocket-0.6.orig//rocket_frontend.py pyrocket-0.6/rocket_frontend.py
+--- pyrocket-0.6.orig//rocket_frontend.py	2008-12-30 20:26:07.000000000 -0500
++++ pyrocket-0.6/rocket_frontend.py	2011-08-13 17:25:51.030482017 -0400
+@@ -8,7 +8,6 @@ import gtk, gobject
+ # ==============================================================================
+ 
+ from rocket_backend import RocketManager
+-from rocket_webcam import VideoWindow
+ from rocket_joystick import StatefulJoystick
+ 
+ class RocketWindow(StatefulJoystick):
+@@ -83,17 +82,6 @@ class RocketWindow(StatefulJoystick):
+ 		top_menu = gtk.MenuBar()
+ 		vbox.pack_start(top_menu, False, False)
+ 
+-
+-		view_menu = gtk.MenuItem("_View")
+-		view_submenu = gtk.Menu()
+-		view_menu.set_submenu( view_submenu )
+-		self.camera_widget_visible = gtk.CheckMenuItem("Camera")
+-		self.camera_widget_visible.connect("toggled", self.cb_toggle_show_camera)
+-		view_submenu.append( self.camera_widget_visible )
+-
+-		top_menu.append( view_menu )
+-
+-
+ 		help_menu = gtk.MenuItem("_Application")
+ 		help_submenu = gtk.Menu()
+ 		help_menu.set_submenu( help_submenu )
+@@ -107,24 +95,8 @@ class RocketWindow(StatefulJoystick):
+ 
+ 		top_menu.append( help_menu )
+ 
+-
+-
+-
+-
+-
+-
+-
+-
+-		# ----------------------------
+-
+-		self.video = VideoWindow()
+-		self.video.set_no_show_all(True)
+-		vbox.pack_start(self.video, False, False)
+-
+ 		# ----------------------------
+ 
+-
+-
+ 		self.joystick_hbox = gtk.HBox(False, 5)
+ 		vbox.pack_start(self.joystick_hbox, False, False)
+ 
+@@ -215,21 +187,6 @@ class RocketWindow(StatefulJoystick):
+ 
+ 	# ===============================
+ 
+-	def cb_toggle_show_camera(self, widget):
+-		if widget.get_active():
+-
+-			self.video.start_video()
+-
+-			self.video.show()
+-			self.video.video_enabled_button.set_active(True)
+-		else:
+-			self.video.video_enabled_button.set_active(False)
+-			self.video.hide()
+-
+-			self.video.stop_capture()
+-
+-	# ===============================
+-
+ 	def cb_about_dialog(self, widget):
+ 
+ 		about_dialog = gtk.AboutDialog()
+@@ -493,9 +450,6 @@ class RocketWindow(StatefulJoystick):
+ 
+ 	def destroy(self, widget, data=None):
+ 
+-		if self.video:
+-			self.video.stop_capture()
+-
+ 		if self.joystick_object:
+ 			self.joystick_object.quit()
+ 
+diff -rupN pyrocket-0.6.orig//rocket_joystick.py pyrocket-0.6/rocket_joystick.py
+--- pyrocket-0.6.orig//rocket_joystick.py	2008-08-18 13:15:27.000000000 -0400
++++ pyrocket-0.6/rocket_joystick.py	2011-08-13 17:00:48.025514639 -0400
+@@ -1,5 +1,4 @@
+ #!/usr/bin/python
+-from opencv import cv, highgui
+ 
+ from pygtk import require
+ require('2.0')
