@@ -14,14 +14,19 @@ LICENSE="metapackage"
 
 SLOT="0"
 KEYWORDS="amd64 x86"
-IUSE="+base -bluetooth +themes +extras hdaps pulseaudio upower gstreamer xscreensaver metacity +gnome-compat"
+IUSE="+base -bluetooth +themes +extras hdaps pulseaudio upower gstreamer xscreensaver metacity xfce4-panel +gnome-compat"
 
 S="${WORKDIR}"
 
 RDEPEND="
 	>=mate-base/mate-desktop-1.8:0
 	>=mate-base/mate-menus-1.8:0
-	>=mate-base/mate-panel-1.8:0
+	!xfce4-panel? (
+		>=mate-base/mate-panel-1.8:0
+	)
+	xfce4-panel? (
+		xfce-base/xfce4-panel
+	)
 	>=mate-base/mate-session-manager-1.8:0
 	>=mate-base/mate-settings-daemon-1.8:0[pulseaudio?]
 	metacity? (
@@ -32,7 +37,14 @@ RDEPEND="
 	)
 	base? (
 		>=mate-base/caja-1.8:0
-		>=mate-base/mate-applets-1.8:0
+		!xfce4-panel? (
+			>=mate-base/mate-applets-1.8:0
+		)
+		xfce4-panel? (
+			xfce-extra/xfce4-datetime-plugin
+			xfce-extra/xfce4-battery-plugin
+			xfce-extra/xfce4-cpugraph-plugin
+		)
 		>=mate-base/mate-control-center-1.8:0
 		gstreamer? (
 			>=mate-extra/mate-media-1.8:0[pulseaudio?]
