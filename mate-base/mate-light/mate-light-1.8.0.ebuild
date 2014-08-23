@@ -39,6 +39,7 @@ RDEPEND="
 		>=mate-base/caja-1.8:0
 		!xfce4-panel? (
 			>=mate-base/mate-applets-1.8:0
+			>=x11-misc/mozo-1.8:0
 		)
 		xfce4-panel? (
 			xfce-extra/xfce4-datetime-plugin
@@ -49,7 +50,6 @@ RDEPEND="
 		gstreamer? (
 			>=mate-extra/mate-media-1.8:0[pulseaudio?]
 		)
-		>=x11-misc/mozo-1.8:0
 		>=x11-terms/mate-terminal-1.8:0
 	)
 	bluetooth? ( net-wireless/blueman:0 )
