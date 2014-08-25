@@ -4,7 +4,7 @@
 
 EAPI="5"
 
-inherit multilib
+inherit multilib eutils gnome2-utils
 
 SRC_URI=""
 DESCRIPTION="Meta ebuild for MATE, a traditional desktop environment"
@@ -105,6 +105,18 @@ src_install() {
 		dosym /usr/bin/engrampa /opt/bin/file-roller
 		dosym /usr/bin/pluma /opt/bin/gedit
 	fi
+
+	if use metacity; then
+		domenu "${FILESDIR}/mate-wm-metacity.desktop"
+		insinto "/usr/share/glib-2.0/schemas"
+		doins "${FILESDIR}/mate-wm-metacity.gschema.override"
+	fi
+
+	if use xfce4-panel; then
+		domenu "${FILESDIR}/mate-panel-xfce4.desktop"
+		insinto "/usr/share/glib-2.0/schemas"
+		doins "${FILESDIR}/mate-panel-xfce4.gschema.override"
+	fi
 }
 
 pkg_postinst() {
@@ -122,4 +134,11 @@ pkg_postinst() {
 	elog ""
 	elog "For support with mate-conf-import see the following MATE forum topic:"
 	elog "http://forums.mate-desktop.org/viewtopic.php?f=16&t=1650"
+
+	"${ROOT}/usr/bin/glib-compile-schemas" "${ROOT}/usr/share/glib-2.0/schemas"
 }
+
+pkg_postrm() {
+	"${ROOT}/usr/bin/glib-compile-schemas" "${ROOT}/usr/share/glib-2.0/schemas"
+}
+
