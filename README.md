@@ -23,6 +23,7 @@ To add this to layman, create the following file:
 
 Then run
 ```
+$ layman -L
 $ layman -a sparky-bluefang
 ```
 
