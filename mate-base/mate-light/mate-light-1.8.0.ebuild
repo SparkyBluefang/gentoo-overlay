@@ -121,9 +121,9 @@ src_install() {
 		insinto "/etc/xdg/menus/"
 		doins "${FILESDIR}/mate-applications-unified.menu"
 
-		for f in "${FILESDIR}/mate-session-*"; do
-			domenu "$f"
-		done
+		domenu "${FILESDIR}/mate-session-lock.desktop"
+		domenu "${FILESDIR}/mate-session-logout.desktop"
+		domenu "${FILESDIR}/mate-session-shutdown.desktop"
 	fi
 }
 
