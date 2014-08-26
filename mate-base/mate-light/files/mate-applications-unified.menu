@@ -1,0 +1,152 @@
+<!DOCTYPE Menu PUBLIC "-//freedesktop//DTD Menu 1.0//EN"
+  "http://www.freedesktop.org/standards/menu-spec/1.0/menu.dtd">
+
+<Menu>
+	<Name>Start</Name>
+	<Directory>mate-menu-applications.directory</Directory>
+
+	<KDELegacyDirs/>
+	<LegacyDir>/etc/X11/applnk</LegacyDir>
+	<LegacyDir>/usr/share/mate/apps</LegacyDir>
+
+	<DefaultAppDirs/>
+	<DefaultDirectoryDirs/>
+	<DirectoryDir>/usr/share/mate/desktop-directories</DirectoryDir>
+
+	<DefaultMergeDirs/>
+	<MergeDir>applications-merged</MergeDir>
+
+	<Layout>
+		<Merge type="all"/>
+		<Separator/>
+		<Menuname>System Tools</Menuname>
+		<Separator/>
+		<Filename>mate-session-lock.desktop</Filename>
+		<Filename>mate-session-logout.desktop</Filename>
+		<Filename>mate-session-shutdown.desktop</Filename>
+	</Layout>
+
+	<Menu>
+		<Name>Accessories</Name>
+		<Directory>mate-utility.directory</Directory>
+		<Include>
+			<Or>
+				<Category>Accessibility</Category>
+				<Category>Core</Category>
+				<Category>Legacy</Category>
+				<Category>Utility</Category>
+			</Or>
+		</Include>
+	</Menu>
+
+	<Menu>
+		<Name>Development</Name>
+		<Directory>mate-development.directory</Directory>
+		<Include>
+			<Category>Development</Category>
+		</Include>
+	</Menu>
+
+	<Menu>
+		<Name>Education</Name>
+		<Directory>mate-education.directory</Directory>
+		<Include>
+			<Category>Education</Category>
+		</Include>
+	</Menu>
+
+	<Menu>
+		<Name>Games</Name>
+		<Directory>mate-game.directory</Directory>
+		<Include>
+			<Category>Game</Category>
+		</Include>
+	</Menu>
+
+	<Menu>
+		<Name>Graphics</Name>
+		<Directory>mate-graphics.directory</Directory>
+		<Include>
+			<Category>Graphics</Category>
+		</Include>
+	</Menu>
+
+	<Menu>
+		<Name>Multimedia</Name>
+		<Directory>mate-audio-video.directory</Directory>
+		<Include>
+			<Category>Audio</Category>
+			<Category>Video</Category>
+			<Category>AudioVideo</Category>
+		</Include>
+	</Menu>
+
+	<Menu>
+		<Name>Network</Name>
+		<Directory>mate-network.directory</Directory>
+		<Include>
+			<Category>Network</Category>
+		</Include>
+	</Menu>
+
+	<Menu>
+		<Name>Office</Name>
+		<Directory>mate-office.directory</Directory>
+		<Include>
+			<Category>Office</Category>
+		</Include>
+	</Menu>
+
+	<Menu>
+		<Name>System Tools</Name>
+		<Directory>mate-menu-system.directory</Directory>
+
+		<MergeDir>preferences-merged</MergeDir>
+
+		<Layout>
+			<Menuname>Settings</Menuname>
+			<Menuname>System</Menuname>
+			<Separator/>
+			<Merge type="menus"/>
+			<Merge type="files"/>
+		</Layout>
+
+		<Menu>
+			<Name>Settings</Name>
+			<Directory>mate-settings.directory</Directory>
+			<Include>
+				<Category>Settings</Category>
+			</Include>
+		</Menu>
+
+		<Include>
+			<Filename>matecc.desktop</Filename>
+		</Include>
+
+		<Menu>
+			<Name>System</Name>
+			<Directory>mate-system.directory</Directory>
+			<Include>
+				<And>
+					<Category>System</Category>
+					<Not><Category>Settings</Category></Not>
+				</And>
+			</Include>
+		</Menu>
+	</Menu>
+
+	<Menu>
+		<Name>Other</Name>
+		<Directory>mate-other.directory</Directory>
+		<OnlyUnallocated/>
+		<Include>
+			<Not><Category>X-MATE-Session</Category></Not>
+		</Include>
+	</Menu>
+
+	<Include>
+		<Filename>mate-session-lock.desktop</Filename>
+		<Filename>mate-session-logout.desktop</Filename>
+		<Filename>mate-session-shutdown.desktop</Filename>
+	</Include>
+</Menu>

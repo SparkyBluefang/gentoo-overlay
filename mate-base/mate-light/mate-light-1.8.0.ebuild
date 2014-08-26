@@ -114,8 +114,16 @@ src_install() {
 
 	if use xfce4-panel; then
 		domenu "${FILESDIR}/mate-panel-xfce4.desktop"
+
 		insinto "/usr/share/glib-2.0/schemas"
 		doins "${FILESDIR}/mate-panel-xfce4.gschema.override"
+
+		insinto "/etc/xdg/menus/"
+		doins "${FILESDIR}/mate-applications-unified.menu"
+
+		for f in "${FILESDIR}/mate-session-*"; do
+			domenu "$f"
+		done
 	fi
 }
 

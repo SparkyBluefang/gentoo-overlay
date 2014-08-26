@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Lock Screen
+Exec=xdg-screensaver lock
+TryExec=mate-session-save
+Icon=system-lock-screen
+OnlyShowIn=MATE;
+Categories=X-MATE-Session;
+
