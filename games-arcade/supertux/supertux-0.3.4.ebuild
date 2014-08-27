@@ -7,7 +7,7 @@ inherit cmake-utils games
 
 DESCRIPTION="A classic 2D jump'n run sidescroller game in a style similar to the original Super Mario games."
 HOMEPAGE="http://supertux.lethargik.org/"
-SRC_URI="mirror://berlios/${PN}/${P}.tar.bz2"
+SRC_URI="http://${PN}.googlecode.com/files/${P}.tar.bz2"
 RESTRICT="mirror"
 
 LICENSE="GPL-3"
