@@ -62,7 +62,7 @@ RDEPEND="
 		gnome-extra/gconf-editor
 		app-text/fbreader
 		app-cdr/xfburn
-		gnome-extra/gcalctool
+		sci-calculators/galculator
 		gnome-extra/gnome-color-manager
 		sys-apps/gnome-disk-utility
 
