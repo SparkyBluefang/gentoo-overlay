@@ -14,5 +14,6 @@ LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
-DEPEND="virtual/python"
-RDEPEND="app-text/htmltidy"
+RDEPEND=""
+DEPEND="${RDEPEND}
+	app-text/htmltidy"
