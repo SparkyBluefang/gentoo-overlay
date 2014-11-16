@@ -91,7 +91,6 @@ RDEPEND="
 	)
 	pulseaudio? (
 		media-sound/pulseaudio
-		media-sound/paprefs
 		media-sound/pavucontrol
 	)
 "
