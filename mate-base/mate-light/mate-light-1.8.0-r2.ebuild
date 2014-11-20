@@ -30,7 +30,7 @@ RDEPEND="
 	>=mate-base/mate-session-manager-1.8:0
 	>=mate-base/mate-settings-daemon-1.8:0[pulseaudio?]
 	xfwm4? (
-		x11-wm/xfwm4
+		xfce-base/xfwm4
 	)
 	!xfwm4? (
 		>=x11-wm/marco-1.8:0
