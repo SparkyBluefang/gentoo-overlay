@@ -57,6 +57,11 @@ RDEPEND="
 		>=x11-themes/mate-backgrounds-1.8:0
 		>=x11-themes/mate-icon-theme-1.8:0
 		>=x11-themes/mate-themes-1.8:0
+		x11-themes/clearlooks-phenix
+		virtual/freedesktop-icon-theme
+		xfwm4? (
+			x11-themes/xfwm4-themes
+		)
 	)
 	extras? (
 		gnome-extra/gconf-editor
@@ -79,7 +84,7 @@ RDEPEND="
 		>=mate-extra/mate-utils-1.8:0
 		>=media-gfx/eom-1.8:0
 		media-fonts/dejavu
-		virtual/freedesktop-icon-theme
+
 		x11-terms/guake
 	)
 	upower? (
