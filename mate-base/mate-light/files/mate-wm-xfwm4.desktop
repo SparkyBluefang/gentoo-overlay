@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
-Name=Metacity
-Exec=metacity
+Name=xfwm4
+Exec=xfwm4
 NoDisplay=true
 X-MATE-Autostart-Phase=WindowManager
 X-MATE-Provides=windowmanager

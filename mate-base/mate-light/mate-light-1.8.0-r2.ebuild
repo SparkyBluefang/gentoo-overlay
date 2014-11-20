@@ -14,7 +14,7 @@ LICENSE="metapackage"
 
 SLOT="0"
 KEYWORDS="amd64 x86"
-IUSE="+base -bluetooth +themes +extras hdaps pulseaudio upower gstreamer xscreensaver metacity xfce4-panel +gnome-compat"
+IUSE="+base -bluetooth +themes +extras hdaps pulseaudio upower gstreamer xscreensaver xfwm4 xfce4-panel +gnome-compat"
 
 S="${WORKDIR}"
 
@@ -29,10 +29,10 @@ RDEPEND="
 	)
 	>=mate-base/mate-session-manager-1.8:0
 	>=mate-base/mate-settings-daemon-1.8:0[pulseaudio?]
-	metacity? (
-		x11-wm/metacity
+	xfwm4? (
+		x11-wm/xfwm4
 	)
-	!metacity? (
+	!xfwm4? (
 		>=x11-wm/marco-1.8:0
 	)
 	base? (
@@ -105,10 +105,10 @@ src_install() {
 		dosym /usr/bin/pluma /opt/bin/gedit
 	fi
 
-	if use metacity; then
-		domenu "${FILESDIR}/mate-wm-metacity.desktop"
+	if use xfwm4; then
+		domenu "${FILESDIR}/mate-wm-xfwm4.desktop"
 		insinto "/usr/share/glib-2.0/schemas"
-		doins "${FILESDIR}/mate-wm-metacity.gschema.override"
+		doins "${FILESDIR}/mate-wm-xfwm4.gschema.override"
 	fi
 
 	if use xfce4-panel; then
