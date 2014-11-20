@@ -84,6 +84,7 @@ RDEPEND="
 		>=mate-extra/mate-utils-1.8:0
 		>=media-gfx/eom-1.8:0
 		media-fonts/dejavu
+		media-fonts/corefonts
 
 		x11-terms/guake
 	)
