@@ -13,6 +13,7 @@ SRC_URI="https://pypi.python.org/packages/source/p/pytidylib/${P}.tar.gz"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
+IUSE=""
 
 RDEPEND=""
 DEPEND="${RDEPEND}
