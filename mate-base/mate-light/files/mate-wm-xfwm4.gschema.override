@@ -1,2 +1,2 @@
 [org.mate.session.required-components]
-windowmanager='mate-wm-metacity'
+windowmanager='mate-wm-xfwm4'
