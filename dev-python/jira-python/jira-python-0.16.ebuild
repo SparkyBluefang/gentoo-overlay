@@ -25,6 +25,6 @@ DEPEND="
 	dev-python/sphinx"
 
 python_prepare_all() {
-	sed -e -i "/find_packages/s/()/(exclude=['tests', 'tools'])/" setup.py || die
+	sed -e "/find_packages/s/()/(exclude=['tests', 'tools'])/" -i setup.py || die
 }
 
