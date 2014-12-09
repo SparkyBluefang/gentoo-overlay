@@ -17,7 +17,9 @@ IUSE=""
 
 RDEPEND="
 	>=dev-python/requests-2.3.0
+	>=dev-python/requests-oauthlib-0.3.3
 	>=dev-python/six-1.5.2
 	>=dev-python/tlslite-0.4.3
 	sys-apps/file[python]"
 DEPEND="${RDEPEND}"
+
