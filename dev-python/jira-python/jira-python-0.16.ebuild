@@ -21,5 +21,7 @@ RDEPEND="
 	>=dev-python/six-1.5.2
 	>=dev-python/tlslite-0.4.3
 	sys-apps/file[python]"
-DEPEND="${RDEPEND}"
+DEPEND="
+	${RDEPEND}
+	dev-python/sphinx"
 
