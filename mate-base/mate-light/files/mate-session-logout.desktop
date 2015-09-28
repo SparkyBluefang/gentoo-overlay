@@ -1,9 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Logout
-Exec=mate-session-save --logout-dialog
-TryExec=mate-session-save
-Icon=system-log-out
-OnlyShowIn=MATE;
-Categories=X-MATE-Session;
-

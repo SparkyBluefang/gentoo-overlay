@@ -1,9 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Shutdown
-Exec=mate-session-save --shutdown-dialog
-TryExec=mate-session-save
-Icon=system-shutdown
-OnlyShowIn=MATE;
-Categories=X-MATE-Session;
-
