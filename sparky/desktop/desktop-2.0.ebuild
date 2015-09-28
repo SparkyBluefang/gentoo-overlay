@@ -18,27 +18,37 @@ S="${WORKDIR}"
 RDEPEND="
 	gnome-extra/cinnamon
 
+	app-crypt/seahorse
+	app-misc/fslint
+	app-misc/gdmap
+	gnome-base/dconf-editor
 	gnome-extra/gconf-editor
 	gnome-extra/gnome-color-manager
-	sys-apps/gnome-disk-utility
 	mate-extra/mate-system-monitor
 	mate-extra/mate-utils
+	sys-apps/gnome-disk-utility
+	sys-apps/gsmartcontrol
+	x11-misc/xdg-user-dirs
+	x11-misc/xdg-user-dirs-gtk
 
-	x11-terms/mate-terminal
 	x11-terms/guake
-
-	app-text/fbreader
-	app-cdr/xfburn
-	gnome-extra/gnome-calculator
+	x11-terms/mate-terminal
 
 	app-arch/engrampa
+	app-cdr/xfburn
 	app-editors/pluma
 	app-text/atril
+	app-text/fbreader
+	gnome-extra/gnome-calculator
 	media-gfx/eom
 
 	fonts? (
-		media-fonts/dejavu
 		media-fonts/corefonts
+		media-fonts/dejavu
+		media-fonts/kochi-substitute
+		media-fonts/mplus-fonts
+		media-fonts/mplus-outline-fonts
+		media-fonts/vlgothic
 	)
 
 	hdaps? (
@@ -47,13 +57,13 @@ RDEPEND="
 	)
 
 	pulseaudio? (
-		media-sound/pulseaudio
 		media-sound/pavucontrol
+		media-sound/pulseaudio
 	)
 
 	themes? (
-		x11-themes/clearlooks-phenix
 		virtual/freedesktop-icon-theme
+		x11-themes/clearlooks-phenix
 	)
 
 	xscreensaver? (
