@@ -13,6 +13,8 @@ SLOT="0"
 KEYWORDS="amd64 x86"
 IUSE="+fonts +gnome-compat hdaps opengl pulseaudio +themes xscreensaver"
 
+S="${WORKDIR}"
+
 RDEPEND="
 	gnome-extra/cinnamon
 
