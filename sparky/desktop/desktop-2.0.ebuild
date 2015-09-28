@@ -11,11 +11,14 @@ LICENSE="metapackage"
 
 SLOT="0"
 KEYWORDS="amd64 x86"
-IUSE="+fonts +gnome-compat hdaps opengl pulseaudio +themes xscreensaver"
+IUSE="+fonts +gnome-compat hdaps opengl pulseaudio scanner +themes xscreensaver"
 
 S="${WORKDIR}"
 
 RDEPEND="
+	x11-apps/mesa-progs
+	x11-base/xorg-x11
+
 	gnome-extra/cinnamon
 
 	app-crypt/seahorse
@@ -41,6 +44,7 @@ RDEPEND="
 	app-text/fbreader
 	gnome-extra/gnome-calculator
 	media-gfx/eom
+	media-video/mpv
 
 	fonts? (
 		media-fonts/corefonts
@@ -61,9 +65,12 @@ RDEPEND="
 		media-sound/pulseaudio
 	)
 
+	scanner? (
+		media-gfx/xsane
+	)
+
 	themes? (
 		virtual/freedesktop-icon-theme
-		x11-themes/clearlooks-phenix
 	)
 
 	xscreensaver? (
