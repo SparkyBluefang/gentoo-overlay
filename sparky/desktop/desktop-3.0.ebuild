@@ -16,9 +16,6 @@ IUSE="+fonts +gnome-compat hdaps opengl pulseaudio scanner +themes xscreensaver"
 S="${WORKDIR}"
 
 RDEPEND="
-	x11-apps/mesa-progs
-	x11-base/xorg-x11
-
 	gnome-extra/cinnamon
 
 	app-crypt/seahorse
@@ -74,10 +71,10 @@ RDEPEND="
 	)
 
 	xscreensaver? (
-		x11-misc/xscreensaver
 		opengl? (
 			x11-misc/rss-glx
 		)
+		x11-misc/xscreensaver
 	)
 "
 

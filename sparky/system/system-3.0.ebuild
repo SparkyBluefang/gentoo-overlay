@@ -11,7 +11,7 @@ LICENSE="metapackage"
 
 SLOT="0"
 KEYWORDS="amd64 x86"
-IUSE="hplip intel scanner"
+IUSE="cups hplip intel opengl scanner wifi X"
 
 S="${WORKDIR}"
 
@@ -26,18 +26,21 @@ RDEPEND="
 	net-firewall/iptables
 	net-misc/dhcpcd
 	net-misc/ntp
-	net-print/cups
-	net-wireless/crda
-	net-wireless/wpa_supplicant
 	sys-apps/pciutils
 	sys-apps/usbutils
 	sys-boot/grub
 	sys-boot/os-prober
 	sys-kernel/gentoo-sources
+	sys-kernel/linux-firmware
+	sys-libs/gpm
 	sys-power/acpid
 	sys-power/cpupower
 	sys-process/cronie
 	sys-process/lsof
+
+	cups? (
+		net-print/cups
+	)
 
 	hplip? (
 		net-print/hplip
@@ -49,6 +52,18 @@ RDEPEND="
 
 	scanner? (
 		media-gfx/sane-backends
+	)
+
+	wifi? (
+		net-wireless/crda
+		net-wireless/wpa_supplicant
+	)
+
+	X? (
+		opengl? (
+			x11-apps/mesa-progs
+		)
+		x11-base/xorg-x11
 	)
 "
 
