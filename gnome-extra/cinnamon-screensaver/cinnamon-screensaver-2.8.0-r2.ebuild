@@ -70,8 +70,11 @@ pkg_setup() {
 
 src_prepare() {
 	epatch "${FILESDIR}"/${PN}-2.6.3-automagic-logind.patch
-	epatch "${FILESDIR}"/${PN}-2.8.0-webkit4.patch #566572
-	epatch "${FILESDIR}"/${PN}-2.6.4-webkit-optional.patch
+	if use webkit; then
+		epatch "${FILESDIR}"/${PN}-2.8.0-webkit4.patch #566572
+	else
+		epatch "${FILESDIR}"/${PN}-2.6.4-webkit-optional.patch
+	fi
 
 	# Fix xscreensaver paths for gentoo
 	sed -e "s#/usr/lib/xscreensaver/#${EPREFIX}/usr/$(get_libdir)/misc/xscreensaver/#" \
