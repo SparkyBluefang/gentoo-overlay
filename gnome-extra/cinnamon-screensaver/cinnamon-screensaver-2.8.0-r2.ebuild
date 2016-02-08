@@ -15,7 +15,7 @@ SRC_URI="https://github.com/linuxmint/cinnamon-screensaver/archive/${PV}.tar.gz 
 LICENSE="GPL-2+"
 SLOT="0"
 IUSE="doc pam systemd webkit"
-KEYWORDS="amd64 x86"
+KEYWORDS="~amd64 ~x86"
 
 COMMON_DEPEND="
 	>=dev-libs/glib-2.37.3:2[dbus]
@@ -25,7 +25,7 @@ COMMON_DEPEND="
 	>=gnome-base/libgnomekbd-3.6
 	>=dev-libs/dbus-glib-0.78
 
-	webkit? ( net-libs/webkit-gtk:3[introspection] )
+	webkit? ( net-libs/webkit-gtk:4[introspection] )
 
 	sys-apps/dbus
 	x11-libs/libxklavier
@@ -35,7 +35,7 @@ COMMON_DEPEND="
 	x11-libs/libXScrnSaver
 	x11-libs/libXxf86misc
 	x11-libs/libXxf86vm
-	x11-themes/gnome-icon-theme-symbolic
+	x11-themes/adwaita-icon-theme
 
 	${PYTHON_DEPS}
 
@@ -70,6 +70,7 @@ pkg_setup() {
 
 src_prepare() {
 	epatch "${FILESDIR}"/${PN}-2.6.3-automagic-logind.patch
+	epatch "${FILESDIR}"/${PN}-2.8.0-webkit4.patch #566572
 	epatch "${FILESDIR}"/${PN}-2.6.4-webkit-optional.patch
 
 	# Fix xscreensaver paths for gentoo
