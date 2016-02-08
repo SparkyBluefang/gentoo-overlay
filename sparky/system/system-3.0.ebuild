@@ -66,4 +66,3 @@ RDEPEND="
 		x11-base/xorg-x11
 	)
 "
-
