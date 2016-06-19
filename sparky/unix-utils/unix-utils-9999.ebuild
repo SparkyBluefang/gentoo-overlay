@@ -2,6 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI="5"
+PYTHON_COMPAT=( python2_7 )
 
 SRC_URI=""
 DESCRIPTION="Various helpful system and user utilities"
@@ -13,15 +14,19 @@ SLOT="0"
 KEYWORDS="amd64 x86"
 IUSE="cpufreq firewall gentoo grub"
 
-inherit git-r3
+inherit git-r3 python-single-r1
+
 EGIT_REPO_URI="https://github.com/SparkyBluefang/unix-utils.git"
 if [ ${PV} != 9999 ]; then
 	EGIT_COMMIT="${PV}"
 fi
 
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
+
 RDEPEND="
 	sys-apps/coreutils
 	virtual/awk
+	${PYTHON_DEPS}
 
 	cpufreq? (
 		sys-power/cpupower
@@ -42,7 +47,7 @@ RDEPEND="
 "
 
 src_install() {
-	dobin checkburk
+	dobin checkburn
 	dobin checksums
 	dobin delay
 	dobin shar2ar
