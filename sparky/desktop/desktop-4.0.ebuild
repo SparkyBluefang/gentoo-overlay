@@ -11,37 +11,58 @@ LICENSE="metapackage"
 
 SLOT="0"
 KEYWORDS="amd64 x86"
-IUSE="+fonts +gnome-compat hdaps opengl pulseaudio scanner +themes xscreensaver"
+IUSE="+archive +fonts gnome2-compat hdaps opengl pulseaudio scanner +themes xscreensaver"
 
 S="${WORKDIR}"
 
 RDEPEND="
-	gnome-extra/cinnamon
-
+	app-cdr/xfburn
 	app-crypt/seahorse
 	app-misc/fslint
 	app-misc/gdmap
+	app-text/calibre
+	app-text/fbreader
 	gnome-base/dconf-editor
+	gnome-extra/cinnamon
 	gnome-extra/gconf-editor
-	gnome-extra/gnome-color-manager
+	gnome-extra/gnome-calculator
 	mate-extra/mate-system-monitor
 	mate-extra/mate-utils
+	media-sound/audacity
+	media-sound/moc
+	media-video/mpv
+	media-video/vlc
 	sys-apps/gnome-disk-utility
 	sys-apps/gsmartcontrol
+	www-plugins/adobe-flash
+	www-plugins/google-talkplugin
+	x11-base/xorg-x11
 	x11-misc/xdg-user-dirs
 	x11-misc/xdg-user-dirs-gtk
-
 	x11-terms/guake
 	x11-terms/mate-terminal
 
-	app-arch/engrampa
-	app-cdr/xfburn
-	app-editors/pluma
-	app-text/atril
-	app-text/fbreader
-	gnome-extra/gnome-calculator
-	media-gfx/eom
-	media-video/mpv
+	archive? (
+		app-arch/lha
+		app-arch/p7zip
+		app-arch/rar
+	)
+
+	gnome2-compat? (
+		app-arch/engrampa
+		app-editors/pluma
+		app-text/atril
+		gnome-extra/nemo-extensions[fileroller,engrampa]
+		media-gfx/eom
+	)
+
+	!gnome2-compat? (
+		app-arch/file-roller
+		app-editors/gedit
+		app-text/evince
+		gnome-extra/nemo-extensions[fileroller,-engrampa]
+		media-gfx/eog
+	)
 
 	fonts? (
 		media-fonts/corefonts
@@ -55,6 +76,10 @@ RDEPEND="
 	hdaps? (
 		app-laptop/hdapsd
 		app-laptop/hdapsicon
+	)
+
+	opengl? (
+		x11-apps/mesa-progs
 	)
 
 	pulseaudio? (
@@ -81,7 +106,7 @@ RDEPEND="
 PDEPEND="virtual/notification-daemon:0"
 
 src_install() {
-	if use gnome-compat; then
+	if use gnome2-compat; then
 		dosym /usr/bin/eom /opt/bin/eog
 		dosym /usr/bin/atril /opt/bin/evince
 		dosym /usr/bin/engrampa /opt/bin/file-roller
