@@ -11,7 +11,7 @@ LICENSE="metapackage"
 
 SLOT="0"
 KEYWORDS="amd64 x86"
-IUSE="cups hidpi hplip intel opengl scanner wifi"
+IUSE="acpi cups hidpi hplip intel opengl scanner wifi"
 
 S="${WORKDIR}"
 
@@ -42,11 +42,14 @@ RDEPEND="
 	sys-kernel/gentoo-sources
 	sys-kernel/linux-firmware
 	sys-libs/gpm
-	sys-power/acpid
 	sys-power/cpupower
 	sys-process/cronie
 	sys-process/lsof
 	www-client/links
+
+	acpi? (
+		sys-power/acpid
+	)
 
 	cups? (
 		net-print/cups
@@ -61,7 +64,7 @@ RDEPEND="
 	)
 
 	intel? (
-		sys-apps/microcode-data
+		sys-firmware/intel-microcode
 	)
 
 	scanner? (
