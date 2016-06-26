@@ -12,7 +12,7 @@ LICENSE="BSD"
 
 SLOT="0"
 KEYWORDS="amd64 x86"
-IUSE="cpufreq firewall gentoo grub"
+IUSE="cpufreq firewall gentoo grub intel"
 
 inherit git-r3 python-single-r1
 
@@ -44,6 +44,10 @@ RDEPEND="
 	grub? (
 		sys-boot/grub:2
 	)
+
+	intel? (
+		sys-apps/iucode_tool
+	)
 "
 
 src_install() {
@@ -69,6 +73,10 @@ src_install() {
 
 	if use grub; then
 		dobin update-grub
+	fi
+
+	if use intel; then
+		dobin update-intel
 	fi
 }
 
