@@ -11,7 +11,7 @@ LICENSE="metapackage"
 
 SLOT="0"
 KEYWORDS="amd64 x86"
-IUSE="+archive +fonts gnome2-compat hdaps opengl pulseaudio scanner +themes xscreensaver"
+IUSE="+archive disks +fonts gnome2-compat hdaps opengl pulseaudio scanner +themes xscreensaver"
 
 S="${WORKDIR}"
 
@@ -32,8 +32,6 @@ RDEPEND="
 	media-sound/moc
 	media-video/mpv
 	media-video/vlc
-	sys-apps/gnome-disk-utility
-	sys-apps/gsmartcontrol
 	www-plugins/adobe-flash
 	www-plugins/google-talkplugin
 	x11-base/xorg-x11
@@ -46,6 +44,11 @@ RDEPEND="
 		app-arch/lha
 		app-arch/p7zip
 		app-arch/rar
+	)
+
+	disks? (
+		sys-apps/gnome-disk-utility
+		sys-apps/gsmartcontrol
 	)
 
 	gnome2-compat? (
