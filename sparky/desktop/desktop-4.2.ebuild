@@ -11,27 +11,21 @@ LICENSE="metapackage"
 
 SLOT="0"
 KEYWORDS="amd64 x86"
-IUSE="+archive disks +fonts gnome2-compat hdaps opengl pulseaudio scanner +themes xscreensaver"
+IUSE="+archive disks +fonts gnome2-compat hdaps minimal opengl pulseaudio scanner +themes xscreensaver"
 
 S="${WORKDIR}"
 
 RDEPEND="
-	app-cdr/xfburn
 	app-crypt/seahorse
 	app-misc/fslint
 	app-misc/gdmap
-	app-text/calibre
-	app-text/fbreader
 	gnome-base/dconf-editor
 	gnome-extra/cinnamon
 	gnome-extra/gconf-editor
 	gnome-extra/gnome-calculator
 	mate-extra/mate-system-monitor
 	mate-extra/mate-utils
-	media-sound/audacity
-	media-sound/moc
 	media-video/mpv
-	media-video/vlc
 	www-plugins/adobe-flash
 	www-plugins/google-talkplugin
 	x11-base/xorg-x11
@@ -79,6 +73,15 @@ RDEPEND="
 	hdaps? (
 		app-laptop/hdapsd
 		app-laptop/hdapsicon
+	)
+
+	!minimal? (
+		app-cdr/xfburn
+		app-text/calibre
+		app-text/fbreader
+		media-sound/audacity
+		media-sound/moc
+		media-video/vlc
 	)
 
 	opengl? (
