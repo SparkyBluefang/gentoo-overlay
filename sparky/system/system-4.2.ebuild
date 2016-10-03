@@ -11,7 +11,7 @@ LICENSE="metapackage"
 
 SLOT="0"
 KEYWORDS="amd64 x86"
-IUSE="acpi cups hidpi hplip intel opengl scanner wifi"
+IUSE="acpi cups dhclient dhcpcd hidpi hplip intel opengl scanner wifi"
 
 S="${WORKDIR}"
 
@@ -28,7 +28,6 @@ RDEPEND="
 	net-dns/ddclient
 	net-dns/openresolv
 	net-firewall/iptables
-	net-misc/dhcpcd
 	net-misc/ntp
 	sparky/unix-utils
 	sys-apps/hdparm
@@ -53,6 +52,14 @@ RDEPEND="
 
 	cups? (
 		net-print/cups
+	)
+
+	dhcpcd? (
+		net-misc/dhcpcd
+	)
+
+	dhclient? (
+		net-misc/dhcp[client]
 	)
 
 	hidpi? (
