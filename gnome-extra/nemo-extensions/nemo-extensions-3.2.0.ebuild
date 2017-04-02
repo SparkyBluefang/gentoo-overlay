@@ -9,11 +9,10 @@ inherit autotools
 
 DESCRIPTION="Nemo file manager extensions and integrations"
 HOMEPAGE=""
-SRC_URI="https://github.com/linuxmint/nemo-extensions/archive/2.8.x.zip"
+SRC_URI="https://github.com/linuxmint/nemo-extensions/archive/3.2.0.tar.gz"
 LICENSE=""
 SLOT="0"
-KEYWORDS="amd64"
-S="${WORKDIR}/${PN}-2.8.x"
+KEYWORDS="~x86 ~amd64"
 
 MODULES_MAKE="dropbox fileroller gtkhash image-converter preview python repairer seahorse share"
 MODULES_PYTHON="audio-tab emblems pastebin"
@@ -41,7 +40,7 @@ REQUIRED_USE="
 #		
 #	)
 #"
-DEPEND="=gnome-extra/nemo-2.8*"
+DEPEND="=gnome-extra/nemo-3.2*"
 
 RDEPEND="${DEPEND}
 	fileroller? (
@@ -101,4 +100,3 @@ src_install() {
 	elog "Removing .a and .la files"
 	find ${D} -name "*.a" -exec rm {} + -o -name "*.la" -exec rm {} + || die
 }
-
