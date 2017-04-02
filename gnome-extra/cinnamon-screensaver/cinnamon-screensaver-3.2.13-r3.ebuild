@@ -1,9 +1,9 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
 EAPI=6
-PYTHON_COMPAT=( python2_7 )
+PYTHON_COMPAT=( python3_4 )
 
 inherit autotools gnome2 multilib python-single-r1
 
@@ -14,12 +14,12 @@ SRC_URI="https://github.com/linuxmint/cinnamon-screensaver/archive/${PV}.tar.gz 
 LICENSE="GPL-2+"
 SLOT="0"
 IUSE="debug doc pam systemd webkit"
-KEYWORDS="amd64 x86"
+KEYWORDS="~amd64 ~x86"
 
 COMMON_DEPEND="
 	>=dev-libs/glib-2.37.3:2[dbus]
 	>=x11-libs/gtk+-3.1.4:3[introspection]
-	>=gnome-extra/cinnamon-desktop-2.6.3:0=[systemd=]
+	>=gnome-extra/cinnamon-desktop-3.2.2:0=[systemd=]
 	>=gnome-base/gsettings-desktop-schemas-0.1.7
 	>=gnome-base/libgnomekbd-3.6
 	>=dev-libs/dbus-glib-0.78
@@ -35,6 +35,7 @@ COMMON_DEPEND="
 	x11-libs/libXxf86misc
 	x11-libs/libXxf86vm
 	x11-themes/adwaita-icon-theme
+	x11-libs/xapps[introspection]
 
 	${PYTHON_DEPS}
 
@@ -46,6 +47,7 @@ RDEPEND="
 	!~gnome-extra/cinnamon-1.8.8.1
 	!systemd? ( sys-auth/consolekit )
 	dev-python/pygobject:3[${PYTHON_USEDEP}]
+	dev-python/setproctitle[${PYTHON_USEDEP}]
 "
 DEPEND="${COMMON_DEPEND}
 	>=dev-util/intltool-0.35
@@ -67,19 +69,7 @@ pkg_setup() {
 }
 
 src_prepare() {
-	eapply "${FILESDIR}"/${PN}-3.0.1-automagic-logind.patch
-	if use webkit; then
-		eapply "${FILESDIR}"/${PN}-2.8.0-webkit4.patch #566572
-	else
-		eapply "${FILESDIR}"/${PN}-2.6.4-webkit-optional.patch
-	fi
-
-	# Fix xscreensaver paths for gentoo
-	sed -e "s#/usr/lib/xscreensaver/#${EPREFIX}/usr/$(get_libdir)/misc/xscreensaver/#" \
-		-i data/screensavers/xscreensaver@cinnamon.org/main || die
-
-	python_fix_shebang data/screensavers
-
+	python_fix_shebang screensavers
 	eautoreconf
 	gnome2_src_prepare
 }
@@ -87,17 +77,17 @@ src_prepare() {
 src_configure() {
 	gnome2_src_configure \
 		$(usex debug --enable-debug ' ') \
-		$(use_enable doc docbook-docs) \
-		$(use_enable pam locking) \
-		$(use_enable systemd logind) \
-		$(use_enable webkit) \
-		--with-mit-ext \
-		--with-pam-prefix=/etc \
-		--with-xf86gamma-ext \
-		--with-kbd-layout-indicator
 	# Do not use --without-console-kit, it would provide no benefit: there is
 	# no build-time or run-time check for consolekit, $PN merely listens to
 	# consolekit's messages over dbus.
+}
+
+pkg_preinst() {
+	gnome2_pkg_preinst
+
+	if ! use webkit; then
+		rm -rf "${D}/usr/share/cinnamon-screensaver/screensavers/webkit@cinnamon.org" || die "webkit file removal failed"
+	fi
 }
 
 pkg_postinst() {
