@@ -11,7 +11,7 @@ LICENSE="metapackage"
 
 SLOT="0"
 KEYWORDS="amd64 x86"
-IUSE="+archive disks +fonts gnome2-compat hdaps minimal opengl pulseaudio scanner +themes xscreensaver"
+IUSE="+archive disks +fonts gnome2-compat minimal opengl pulseaudio scanner +themes xscreensaver"
 
 S="${WORKDIR}"
 
@@ -68,11 +68,6 @@ RDEPEND="
 		media-fonts/mplus-fonts
 		media-fonts/mplus-outline-fonts
 		media-fonts/vlgothic
-	)
-
-	hdaps? (
-		app-laptop/hdapsd
-		app-laptop/hdapsicon
 	)
 
 	!minimal? (

@@ -1,8 +1,0 @@
-[Desktop Entry]
-Name=HDAPSicon
-Comment=Monitor your HDAPS-enabled harddisk
-Exec=hdapsicon
-Icon=hdapsicon-logo.svg
-Type=Application
-Categories=System
-Terminal=false
