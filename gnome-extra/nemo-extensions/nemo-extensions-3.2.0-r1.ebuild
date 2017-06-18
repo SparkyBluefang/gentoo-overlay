@@ -16,10 +16,9 @@ KEYWORDS="~x86 ~amd64"
 
 MODULES_MAKE="dropbox fileroller gtkhash image-converter preview python repairer seahorse share"
 MODULES_PYTHON="audio-tab emblems pastebin"
-IUSE="$MODULES_MAKE $MODULES_PYTHON compare engrampa media-columns rabbitvcs terminal"
+IUSE="$MODULES_MAKE $MODULES_PYTHON compare media-columns rabbitvcs terminal"
 
 REQUIRED_USE="
-	engrampa? ( fileroller )
 	terminal? ( python )
 "
 
@@ -44,8 +43,7 @@ DEPEND="=gnome-extra/nemo-3.2*"
 
 RDEPEND="${DEPEND}
 	fileroller? (
-		!engrampa? ( app-arch/file-roller )
-		engrampa? ( app-arch/engrampa )
+		app-arch/file-roller
 	)"
 
 src_prepare() {
@@ -54,11 +52,6 @@ src_prepare() {
 			elog "Preparing ${module}"
 			pushd nemo-${module}
 			eautoreconf
-
-			if [ ${module} = "fileroller" ] && use engrampa; then
-				sed -i 's/"file-roller/"engrampa/g' src/nemo-fileroller.c
-			fi
-
 			popd
 		fi
 	done

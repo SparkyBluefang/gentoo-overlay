@@ -11,23 +11,27 @@ LICENSE="metapackage"
 
 SLOT="0"
 KEYWORDS="amd64 x86"
-IUSE="+archive disks +fonts gnome2-compat minimal opengl pulseaudio scanner +themes xscreensaver"
+IUSE="+archive disks +fonts minimal opengl pulseaudio scanner +themes xscreensaver"
 
 S="${WORKDIR}"
 
 RDEPEND="
+	app-arch/file-roller
 	app-crypt/seahorse
+	app-editors/gedit
 	app-misc/fslint
-	app-misc/gdmap
+	app-text/evince
 	gnome-base/dconf-editor
 	gnome-extra/cinnamon
 	gnome-extra/gconf-editor
 	gnome-extra/gnome-calculator
+	gnome-extra/nemo-extensions[fileroller]
 	mate-extra/mate-system-monitor
 	mate-extra/mate-utils
+	media-gfx/eog
 	media-video/mpv
+	sys-apps/qdirstat
 	www-plugins/adobe-flash
-	www-plugins/google-talkplugin
 	x11-base/xorg-x11
 	x11-misc/xdg-user-dirs
 	x11-misc/xdg-user-dirs-gtk
@@ -43,22 +47,6 @@ RDEPEND="
 	disks? (
 		sys-apps/gnome-disk-utility
 		sys-apps/gsmartcontrol
-	)
-
-	gnome2-compat? (
-		app-arch/engrampa
-		app-editors/pluma
-		app-text/atril
-		gnome-extra/nemo-extensions[fileroller,engrampa]
-		media-gfx/eom
-	)
-
-	!gnome2-compat? (
-		app-arch/file-roller
-		app-editors/gedit
-		app-text/evince
-		gnome-extra/nemo-extensions[fileroller,-engrampa]
-		media-gfx/eog
 	)
 
 	fonts? (
@@ -105,14 +93,3 @@ RDEPEND="
 "
 
 PDEPEND="virtual/notification-daemon:0"
-
-src_install() {
-	if use gnome2-compat; then
-		dosym /usr/bin/eom /opt/bin/eog
-		dosym /usr/bin/atril /opt/bin/evince
-		dosym /usr/bin/engrampa /opt/bin/file-roller
-		dosym /usr/bin/pluma /opt/bin/gedit
-		dosym /usr/bin/mate-screenshot /opt/bin/gnome-screenshot
-	fi
-}
-
