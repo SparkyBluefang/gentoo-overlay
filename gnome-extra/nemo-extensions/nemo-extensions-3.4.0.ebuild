@@ -47,6 +47,7 @@ RDEPEND="${DEPEND}
 	)"
 
 src_prepare() {
+	eapply_user
 	for module in ${MODULES_MAKE}; do
 		if use ${module}; then
 			elog "Preparing ${module}"
