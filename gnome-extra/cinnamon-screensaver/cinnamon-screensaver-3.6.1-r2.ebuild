@@ -12,7 +12,7 @@ SRC_URI="https://github.com/linuxmint/cinnamon-screensaver/archive/${PV}.tar.gz 
 
 LICENSE="GPL-2+"
 SLOT="0"
-IUSE="consolekit debug doc pam systemd webkit"
+IUSE="debug doc pam systemd webkit xinerama"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 KEYWORDS="~amd64 ~x86"
 
@@ -36,19 +36,17 @@ COMMON_DEPEND="
 	x11-libs/libXxf86vm
 	x11-themes/adwaita-icon-theme
 
+	!systemd? ( sys-auth/elogind )
+
 	${PYTHON_DEPS}
 
 	pam? ( virtual/pam )
 	systemd? ( >=sys-apps/systemd-31:0= )
-	!systemd? (
-		consolekit? ( sys-auth/consolekit )
-		!consolekit? ( sys-auth/elogind )
-	)
+	xinerama? ( x11-libs/libXinerama )
 "
 # our cinnamon-1.8 ebuilds installed a cinnamon-screensaver.desktop hack
 RDEPEND="${COMMON_DEPEND}
 	!~gnome-extra/cinnamon-1.8.8.1
-	!systemd? ( sys-auth/consolekit )
 	dev-python/pygobject:3[${PYTHON_USEDEP}]
 	dev-python/setproctitle[${PYTHON_USEDEP}]
 	dev-python/xapp[${PYTHON_USEDEP}]
@@ -82,9 +80,7 @@ src_prepare() {
 src_configure() {
 	gnome2_src_configure \
 		$(usex debug --enable-debug ' ') \
-	# Do not use --without-console-kit, it would provide no benefit: there is
-	# no build-time or run-time check for consolekit, $PN merely listens to
-	# consolekit's messages over dbus.
+		$(use_enable xinerama)
 }
 
 pkg_preinst() {
