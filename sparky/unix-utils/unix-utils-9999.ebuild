@@ -14,8 +14,6 @@ SLOT="0"
 KEYWORDS="amd64 x86"
 IUSE="cpufreq firewall gentoo grub iptables nftables"
 
-REQUIRED_USE="firewall? ( ^^ ( iptables nftables ) )"
-
 inherit git-r3 python-single-r1
 
 EGIT_REPO_URI="https://github.com/SparkyBluefang/unix-utils.git"
@@ -23,7 +21,7 @@ if [ ${PV} != 9999 ]; then
 	EGIT_COMMIT="${PV}"
 fi
 
-REQUIRED_USE="${PYTHON_REQUIRED_USE}"
+REQUIRED_USE="firewall? ( ^^ ( iptables nftables ) ) ${PYTHON_REQUIRED_USE}"
 
 RDEPEND="
 	sys-apps/coreutils
