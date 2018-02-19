@@ -27,7 +27,6 @@ RDEPEND="
 	media-sound/alsa-utils
 	net-dns/ddclient
 	net-dns/openresolv
-	net-firewall/iptables
 	net-misc/ntp
 	sparky/unix-utils
 	sys-apps/hdparm
