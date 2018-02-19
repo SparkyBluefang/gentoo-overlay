@@ -12,7 +12,9 @@ LICENSE="BSD"
 
 SLOT="0"
 KEYWORDS="amd64 x86"
-IUSE="cpufreq firewall gentoo grub intel"
+IUSE="cpufreq firewall gentoo grub iptables nftables"
+
+REQUIRED_USE="firewall? ( ^^ ( iptables nftables ) )"
 
 inherit git-r3 python-single-r1
 
@@ -33,7 +35,13 @@ RDEPEND="
 	)
 
 	firewall? (
-		net-firewall/iptables
+		iptables? (
+			net-firewall/iptables
+		)
+
+		nftables? (
+			net-firewall/nftables
+		)
 	)
 
 	gentoo? (
@@ -43,10 +51,6 @@ RDEPEND="
 
 	grub? (
 		sys-boot/grub:2
-	)
-
-	intel? (
-		sys-apps/iucode_tool
 	)
 "
 
@@ -64,7 +68,14 @@ src_install() {
 
 	if use firewall; then
 		newconfd firewall/firewall.conf firewall
-		newinitd firewall/firewall.init firewall
+
+		if use iptables; then
+			newinitd firewall/firewall.iptables.init firewall
+		fi
+
+		if use nftables; then
+			newinitd firewall/firewall.nftables.init firewall
+		fi
 	fi
 
 	if use gentoo; then
@@ -73,10 +84,6 @@ src_install() {
 
 	if use grub; then
 		dobin update-grub
-	fi
-
-	if use intel; then
-		dobin update-intel
 	fi
 }
 
