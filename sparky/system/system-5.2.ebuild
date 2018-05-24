@@ -34,7 +34,6 @@ RDEPEND="
 	sys-apps/usbutils
 	sys-block/parted
 	sys-boot/grub
-	sys-boot/os-prober
 	sys-kernel/gentoo-sources
 	sys-kernel/linux-firmware
 	sys-libs/gpm
