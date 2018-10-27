@@ -13,13 +13,14 @@ SLOT="0"
 KEYWORDS="amd64 x86"
 IUSE="acpi cups dhclient dhcpcd exfat fat hidpi hplip intel ntfs opengl scanner wifi X xscreensaver"
 
+REQUIRED_USE="( ^^ ( dhclient dhcpcd ) )"
+
 S="${WORKDIR}"
 
 RDEPEND="
 	app-admin/mcelog
 	app-admin/metalog
 	app-editors/vim
-	app-editors/nano
 	app-portage/gentoolkit
 	app-portage/layman
 	app-shells/bash-completion

@@ -25,11 +25,10 @@ RDEPEND="
 	gnome-extra/cinnamon
 	gnome-extra/gconf-editor
 	gnome-extra/gnome-calculator
-	mate-extra/mate-system-monitor
-	mate-extra/mate-utils
+	gnome-extra/gnome-system-monitor
 	media-gfx/gnome-screenshot
+	x11-terms/gnome-terminal
 	x11-terms/guake
-	x11-terms/mate-terminal
 
 	archive? (
 		app-arch/file-roller
@@ -70,6 +69,7 @@ RDEPEND="
 			media-sound/audacity
 			media-sound/moc
 			media-video/vlc
+			net-misc/youtube-dl
 		)
 	)
 
