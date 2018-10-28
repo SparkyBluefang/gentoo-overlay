@@ -12,7 +12,7 @@ LICENSE="BSD"
 
 SLOT="0"
 KEYWORDS="amd64 x86"
-IUSE="cpufreq firewall gentoo grub iptables nftables"
+IUSE="cpufreq firewall gentoo grub iptables nftables X"
 
 inherit git-r3 python-single-r1
 
@@ -82,6 +82,10 @@ src_install() {
 
 	if use grub; then
 		dobin update-grub
+	fi
+
+	if use X; then
+		dobin update-xorg
 	fi
 }
 
