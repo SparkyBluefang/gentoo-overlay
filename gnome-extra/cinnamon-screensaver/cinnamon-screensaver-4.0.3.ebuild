@@ -12,7 +12,7 @@ SRC_URI="https://github.com/linuxmint/cinnamon-screensaver/archive/${PV}.tar.gz 
 
 LICENSE="GPL-2+"
 SLOT="0"
-IUSE="debug doc pam systemd webkit xinerama"
+IUSE="debug doc pam systemd xinerama"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 KEYWORDS="~amd64 ~x86"
 
@@ -23,8 +23,6 @@ COMMON_DEPEND="
 	>=gnome-base/gsettings-desktop-schemas-0.1.7
 	>=gnome-base/libgnomekbd-3.6
 	>=dev-libs/dbus-glib-0.78
-
-	webkit? ( net-libs/webkit-gtk:4[introspection] )
 
 	sys-apps/dbus
 	x11-libs/libxklavier
@@ -77,14 +75,6 @@ src_configure() {
 	gnome2_src_configure \
 		$(usex debug --enable-debug ' ') \
 		$(use_enable xinerama)
-}
-
-pkg_preinst() {
-	gnome2_pkg_preinst
-
-	if ! use webkit; then
-		rm -rf "${D}/usr/share/cinnamon-screensaver/screensavers/webkit@cinnamon.org" || die "webkit file removal failed"
-	fi
 }
 
 pkg_postinst() {
