@@ -76,12 +76,3 @@ src_configure() {
 		$(usex debug --enable-debug ' ') \
 		$(use_enable xinerama)
 }
-
-pkg_postinst() {
-	gnome2_pkg_postinst
-
-	if ! has_version x11-misc/xscreensaver; then
-		elog "${PN} can use screensavers from x11-misc/xscreensaver"
-	fi
-
-}
