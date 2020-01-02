@@ -35,7 +35,7 @@ RDEPEND="
 		app-arch/lha
 		app-arch/p7zip
 		app-arch/rar
-		gnome-extra/nemo-extensions[fileroller]
+		gnome-extra/nemo-fileroller
 	)
 
 	disks? (
