@@ -23,7 +23,6 @@ RDEPEND="
 	app-misc/fslint
 	gnome-base/dconf-editor
 	gnome-extra/cinnamon
-	gnome-extra/gconf-editor
 	gnome-extra/gnome-calculator
 	gnome-extra/gnome-system-monitor
 	media-gfx/gnome-screenshot
@@ -66,6 +65,7 @@ RDEPEND="
 		media-gfx/eog
 		media-video/mpv
 		!minimal? (
+			media-gfx/gimp
 			media-sound/audacity
 			media-sound/moc
 			media-video/vlc
