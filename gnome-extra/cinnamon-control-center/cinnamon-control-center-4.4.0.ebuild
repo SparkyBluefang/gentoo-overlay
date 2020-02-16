@@ -67,7 +67,6 @@ DEPEND="${COMMON_DEPEND}
 	>=sys-devel/gettext-0.17
 	virtual/pkgconfig
 
-	gnome-base/gnome-common
 	sys-devel/autoconf-archive
 "
 src_prepare() {
