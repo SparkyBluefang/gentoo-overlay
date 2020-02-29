@@ -21,8 +21,8 @@ RDEPEND="
 	app-admin/mcelog
 	app-admin/metalog
 	app-editors/vim
+	app-eselect/eselect-repository
 	app-portage/gentoolkit
-	app-portage/layman
 	app-shells/bash-completion
 	app-vim/vim-spell-en
 	media-sound/alsa-utils
