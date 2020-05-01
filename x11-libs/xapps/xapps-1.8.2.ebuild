@@ -24,6 +24,7 @@ RDEPEND="
 	>=x11-libs/gdk-pixbuf-2.22.0:2[introspection?]
 	>=x11-libs/gtk+-3.3.16:3[introspection?]
 	x11-libs/libxkbfile
+	dev-libs/libdbusmenu[gtk3,introspection?]
 "
 DEPEND="${RDEPEND}
 	sys-devel/gettext

@@ -21,17 +21,12 @@ COMMON_DEPEND="
 	>=x11-libs/gtk+-3.1.4:3[introspection]
 	>=gnome-extra/cinnamon-desktop-2.6.3:0=[systemd=]
 	>=gnome-base/gsettings-desktop-schemas-0.1.7
-	>=gnome-base/libgnomekbd-3.6
 	>=dev-libs/dbus-glib-0.78
 
 	sys-apps/dbus
-	x11-libs/libxklavier
 	x11-libs/libX11
 	x11-libs/libXext
 	x11-libs/libXrandr
-	x11-libs/libXScrnSaver
-	x11-libs/libXxf86misc
-	x11-libs/libXxf86vm
 	x11-themes/adwaita-icon-theme
 
 	!systemd? ( sys-auth/elogind )
