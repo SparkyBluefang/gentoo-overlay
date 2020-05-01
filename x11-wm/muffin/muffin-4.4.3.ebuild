@@ -62,6 +62,7 @@ RDEPEND="${COMMON_DEPEND}
 
 src_prepare() {
 	eapply "${FILESDIR}"/muffin-4.0-{cogl,clutter}-configure.patch
+	eapply "${FILESDIR}"/muffin-4.4-{gobject-introspection,gir}-fixes.patch
 	eautoreconf
 	gnome2_src_prepare
 }
