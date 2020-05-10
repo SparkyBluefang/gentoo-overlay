@@ -3,27 +3,8 @@ gentoo-overlay
 
 This is a collection of random ebuilds I've written or modified.
 
-To add this to layman, create the following file:
+To add this to your repos.conf:
+> eselect repository add sparky-bluefang git https://github.com/SparkyBluefang/gentoo-overlay.git
 
-/etc/layman/overlays/sparky-bluefang.xml
-```xml
-<?xml version="1.0" ?>
-<repositories version="1.0">
-	<repo quality="experimental" status="unofficial">
-		<name>sparky-bluefang</name>
-		<description>ebuild odds and ends</description>
-		<homepage>https://github.com/SparkyBluefang/gentoo-overlay</homepage>
-		<owner>
-			<name>SparkyBluefang</name>
-		</owner>
-		<source type="git">https://github.com/SparkyBluefang/gentoo-overlay.git</source>
-	</repo>
-</repositories>
-```
-
-Then run
-```
-$ layman -L
-$ layman -a sparky-bluefang
-```
-
+To update:
+> emaint sync -r sparky-bluefang
