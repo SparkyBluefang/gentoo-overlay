@@ -1,8 +1,8 @@
 # Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
-inherit meson gnome2
+EAPI=7
+inherit meson xdg
 
 DESCRIPTION="Cinnamon's library for the Desktop Menu fd.o specification"
 HOMEPAGE="http://developer.linuxmint.com/projects/cinnamon-projects.html"
@@ -26,11 +26,9 @@ DEPEND="${RDEPEND}
 "
 
 src_configure() {
-	meson_src_configure \
-		$(meson_use debug enable_debug) \
+	local emesonargs=(
 		$(meson_use doc enable_docs)
-}
-
-src_install() {
-	meson_src_install
+		$(meson_use debug enable_debug)
+	)
+	meson_src_configure
 }

@@ -1,10 +1,10 @@
 # Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 PYTHON_COMPAT=( python3_{6,7,8} )
 
-inherit meson eutils gnome2 python-any-r1 virtualx
+inherit meson eutils gnome2-utils python-any-r1 virtualx xdg
 
 DESCRIPTION="A file manager for Cinnamon, forked from Nautilus"
 HOMEPAGE="http://developer.linuxmint.com/projects/cinnamon-projects.html"
@@ -60,13 +60,21 @@ DEPEND="${COMMON_DEPEND}
 "
 
 src_configure() {
-	meson_src_configure \
-		$(meson_use exif) \
-		$(meson_use xmp) \
-		$(meson_use selinux) \
+	local emesonargs=(
+		$(meson_use exif)
+		$(meson_use xmp)
+		$(meson_use selinux)
 		$(meson_use doc gtk_doc)
+	)
+	meson_src_configure
 }
 
-src_install() {
-	meson_src_install
+pkg_postinst() {
+	xdg_pkg_postinst
+	gnome2_schemas_update
+}
+
+pkg_postrm() {
+	xdg_pkg_postrm
+	gnome2_schemas_update
 }

@@ -1,10 +1,10 @@
 # Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 VALA_USE_DEPEND="vapigen"
-inherit vala meson gnome2-utils xdg-utils
+inherit vala meson xdg
 
 DESCRIPTION="Cross-desktop libraries and common resources"
 HOMEPAGE="https://github.com/linuxmint/xapps/"
@@ -39,8 +39,10 @@ src_prepare() {
 }
 
 src_configure() {
-	meson_src_configure \
+	local emesonargs=(
 		$(meson_use doc docs)
+	)
+	meson_src_configure
 }
 
 src_install() {
@@ -49,12 +51,4 @@ src_install() {
 
 	# package provides .pc files
 	find "${D}" -name '*.la' -delete || die
-}
-
-pkg_postinst() {
-	gnome2_icon_cache_update
-}
-
-pkg_postrm() {
-	gnome2_icon_cache_update
 }

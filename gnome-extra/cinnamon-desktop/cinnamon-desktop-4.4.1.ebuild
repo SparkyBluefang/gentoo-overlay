@@ -1,10 +1,10 @@
 # Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 PYTHON_COMPAT=( python3_{6,7,8} )
 
-inherit meson eutils gnome2 python-single-r1
+inherit meson eutils gnome2-utils python-single-r1 xdg
 
 DESCRIPTION="A collection of libraries and utilites used by Cinnamon"
 HOMEPAGE="http://developer.linuxmint.com/projects/cinnamon-projects.html"
@@ -42,14 +42,6 @@ DEPEND="${COMMON_DEPEND}
 	virtual/pkgconfig
 "
 
-pkg_setup() {
-	python_setup
-}
-
-src_configure() {
-	meson_src_configure
-}
-
 src_install() {
 	meson_src_install
 
@@ -58,4 +50,12 @@ src_install() {
 		insinto /usr/share/glib-2.0/schemas/
 		newins "${FILESDIR}"/${PN}-2.6.4.systemd.gschema.override ${PN}.systemd.gschema.override
 	fi
+}
+
+pkg_postinst() {
+	gnome2_schemas_update
+}
+
+pkg_postrm() {
+	gnome2_schemas_update
 }

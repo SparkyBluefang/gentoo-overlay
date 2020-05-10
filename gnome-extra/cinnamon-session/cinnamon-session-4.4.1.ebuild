@@ -1,8 +1,8 @@
 # Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
-inherit meson eutils gnome2
+EAPI=7
+inherit meson eutils gnome2-utils xdg
 
 DESCRIPTION="Cinnamon session manager"
 HOMEPAGE="http://developer.linuxmint.com/projects/cinnamon-projects.html"
@@ -45,19 +45,26 @@ DEPEND="${COMMON_DEPEND}
 	doc? ( app-text/xmlto )
 "
 
-src_prepare() {
-	eapply "${FILESDIR}/${PN}-3.8.0-elogind.patch" \
-	       "${FILESDIR}/${PN}-3.8.0-elogind2.patch"
-	gnome2_src_prepare
-}
+PATCHES=(
+	"${FILESDIR}"/${PN}-3.8.0-elogind.patch
+	"${FILESDIR}"/${PN}-3.8.0-elogind2.patch
+)
 
 src_configure() {
-	meson_src_configure \
-		-Dgconf=false \
-		$(meson_use doc docbook) \
+	local emesonargs=(
+		-Dgconf=false
+		$(meson_use doc docbook)
 		$(meson_use ipv6)
+	)
+	meson_src_configure
 }
 
-src_install() {
-	meson_src_install
+pkg_postinst() {
+	xdg_pkg_postinst
+	gnome2_schemas_update
+}
+
+pkg_postrm() {
+	xdg_pkg_postrm
+	gnome2_schemas_update
 }
