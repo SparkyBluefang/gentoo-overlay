@@ -1,0 +1,82 @@
+From 6be45593b3524ada2092e257be243d78737cf7ac Mon Sep 17 00:00:00 2001
+From: Ben Felder <20211140+pykong@users.noreply.github.com>
+Date: Sat, 8 Feb 2020 20:41:37 +0100
+Subject: [PATCH] Update guake_app.py
+
+This **PR** modifies the `Guake.show_hide` method in order to re-enable the refocus function.
+It works perfectly well on my Linux Mint 19.3 with Cinnamon.
+
+In #1698 @gsemet suggested to test a large range of different desktop environments with this modification.
+In absence of automatic stets alleviating the extraordinary manual effort required to do so, I am instead suggestion an alternative approach:
+**Marking this feature as experimental**
+Any bug issues could then be solved as they occur.
+
+Also the code base could use some overhaul, as I have suggested in #1710 - regarding the **PR** at hand I have not dared to examine a possible unification of the different focus methods such as:
+- `self.window.get_window().focus(0)`
+- `self.set_terminal_focus()`
+- `show_focus`
+
+Closes: #1698
+---
+ guake/guake_app.py | 38 +++++++++++---------------------------
+ 1 file changed, 11 insertions(+), 27 deletions(-)
+
+diff --git a/guake/guake_app.py b/guake/guake_app.py
+index 357287b7..93538a51 100644
+--- a/guake/guake_app.py
++++ b/guake/guake_app.py
+@@ -545,6 +545,7 @@ def show_hide(self, *args):
+         """Toggles the main window visibility
+         """
+         log.debug("Show_hide called")
++        
+         if self.forceHide:
+             self.forceHide = False
+             return
+@@ -558,36 +559,19 @@ def show_hide(self, *args):
+         if not self.window.get_property("visible"):
+             log.info("Showing the terminal")
+             self.show()
++            self.window.get_window().focus(0)
+             self.set_terminal_focus()
+             return
+ 
+-        # Disable the focus_if_open feature
+-        #  - if doesn't work seamlessly on all system
+-        #  - self.window.window.get_state doesn't provides us the right information on all
+-        #    systems, especially on MATE/XFCE
+-        #
+-        # if self.client.get_bool(KEY('/general/focus_if_open')):
+-        #     restore_focus = False
+-        #     if self.window.window:
+-        #         state = int(self.window.window.get_state())
+-        #         if ((state & GDK_WINDOW_STATE_STICKY or
+-        #                 state & GDK_WINDOW_STATE_WITHDRAWN
+-        #              )):
+-        #             restore_focus = True
+-        #     else:
+-        #         restore_focus = True
+-        # if not self.hidden:
+-        # restore_focus = True
+-        #     if restore_focus:
+-        #         log.debug("DBG: Restoring the focus to the terminal")
+-        #         self.hide()
+-        #         self.show()
+-        #         self.window.window.focus()
+-        #         self.set_terminal_focus()
+-        #         return
+-
+-        log.info("Hiding the terminal")
+-        self.hide()
++        should_refocus = self.settings.general.get_boolean('window-refocus')
++        has_focus = self.window.get_window().get_state() & Gdk.WindowState.FOCUSED
++        if should_refocus and not has_focus:
++            log.info("Refocussing the terminal")
++            self.window.get_window().focus(0)
++            self.set_terminal_focus()
++        else:
++            log.info("Hiding the terminal")
++            self.hide()
+ 
+     def show_focus(self, *args):
+         self.win_prepare()
