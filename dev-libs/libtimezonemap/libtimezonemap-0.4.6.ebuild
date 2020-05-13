@@ -1,10 +1,9 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
-GNOME2_LA_PUNT="yes"
+EAPI=7
 
-inherit autotools eutils gnome2
+inherit autotools xdg
 
 DESCRIPTION="GTK+3 timezone map widget"
 HOMEPAGE="https://launchpad.net/timezonemap"
@@ -17,6 +16,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND="dev-libs/glib:2
+	dev-libs/gobject-introspection:0=
 	dev-libs/json-glib
 	net-libs/libsoup
 	x11-libs/cairo
@@ -29,8 +29,8 @@ src_prepare() {
 	default
 }
 
-src_compile() {
-	# Fix sandbox violation Bug 567192
-	export -n XDG_CACHE_HOME
-	gnome2_src_compile
+src_install() {
+	default
+
+	find "${D}" -name '*.la' -delete || die
 }

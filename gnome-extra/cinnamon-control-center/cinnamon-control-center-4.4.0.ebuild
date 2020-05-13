@@ -1,4 +1,4 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -12,7 +12,7 @@ SRC_URI="https://github.com/linuxmint/cinnamon-control-center/archive/${PV}.tar.
 
 LICENSE="GPL-2+"
 SLOT="0"
-IUSE="+colord +cups debug input_devices_wacom +networkmanager +modemmanager systemd"
+IUSE="+colord debug input_devices_wacom +networkmanager +modemmanager systemd"
 REQUIRED_USE="modemmanager? ( networkmanager )"
 KEYWORDS="~amd64 ~x86"
 
@@ -39,7 +39,6 @@ COMMON_DEPEND="
 	x11-libs/libX11
 	x11-libs/libxklavier
 	colord? ( >=x11-misc/colord-0.1.14:0= )
-	cups? ( >=net-print/cups-1.4[dbus] )
 	input_devices_wacom? (
 		>=dev-libs/libwacom-0.7
 		>=x11-libs/gtk+-3.8:3
@@ -52,9 +51,6 @@ RDEPEND="${COMMON_DEPEND}
 	!systemd? ( app-admin/openrc-settingsd sys-auth/elogind )
 	x11-themes/adwaita-icon-theme
 	colord? ( >=gnome-extra/gnome-color-manager-3 )
-	cups? (
-		app-admin/system-config-printer
-		net-print/cups-pk-helper )
 	input_devices_wacom? ( gnome-extra/cinnamon-settings-daemon[input_devices_wacom] )
 "
 
@@ -75,16 +71,18 @@ src_prepare() {
 }
 
 src_configure() {
-	# --enable-systemd doesn't do anything in $PN-2.2.5
+	# cups, documentation, and systemd don't do anything
+	# and have been removed in the next release. So 
+	# disable them for now.
 	gnome2_src_configure \
 		--disable-static \
-		--enable-documentation \
 		--disable-onlineaccounts \
+		--disable-cups \
+		--disable-documentation \
+		--disable-systemd \
 		$(use_enable colord color) \
-		$(use_enable cups) \
 		$(usex debug --enable-debug=yes ' ') \
 		$(use_enable input_devices_wacom wacom) \
 		$(use_enable networkmanager) \
-		$(use_enable modemmanager) \
-		$(use_enable systemd)
+		$(use_enable modemmanager)
 }

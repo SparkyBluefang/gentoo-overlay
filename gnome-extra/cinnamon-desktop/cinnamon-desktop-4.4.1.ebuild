@@ -4,7 +4,7 @@
 EAPI=7
 PYTHON_COMPAT=( python3_{6,7,8} )
 
-inherit meson eutils gnome2-utils python-single-r1 xdg
+inherit meson gnome2-utils python-any-r1 xdg
 
 DESCRIPTION="A collection of libraries and utilites used by Cinnamon"
 HOMEPAGE="http://developer.linuxmint.com/projects/cinnamon-projects.html"
@@ -14,9 +14,8 @@ LICENSE="GPL-2+ FDL-1.1+ LGPL-2+"
 SLOT="0/4" # subslot = libcinnamon-desktop soname version
 KEYWORDS="~amd64 ~x86"
 IUSE="+introspection systemd"
-REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
-COMMON_DEPEND="${PYTHON_DEPS}
+COMMON_DEPEND="
 	>=dev-libs/glib-2.37.3:2[dbus]
 	media-sound/pulseaudio[glib]
 	>=x11-libs/gdk-pixbuf-2.22:2[introspection?]
@@ -31,16 +30,13 @@ COMMON_DEPEND="${PYTHON_DEPS}
 	introspection? ( >=dev-libs/gobject-introspection-0.9.7:= )
 	sys-apps/accountsservice
 "
-RDEPEND="${COMMON_DEPEND}
-	$(python_gen_cond_dep '
-		dev-python/pygobject:3[${PYTHON_MULTI_USEDEP}]
-	')
-"
+RDEPEND="${COMMON_DEPEND}"
 DEPEND="${COMMON_DEPEND}
 	>=dev-util/intltool-0.40.6
 	x11-base/xorg-proto
 	virtual/pkgconfig
 "
+BDEPEND="${PYTHON_DEPS}"
 
 src_install() {
 	meson_src_install

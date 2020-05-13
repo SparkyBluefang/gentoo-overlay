@@ -1,4 +1,4 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -39,14 +39,17 @@ RDEPEND="
 	>=sys-power/upower-0.9.11
 
 	colord? ( >=x11-misc/colord-0.1.27:= )
-	cups? ( >=net-print/cups-1.4[dbus] )
+	cups? (
+		>=net-print/cups-1.4[dbus]
+		app-admin/system-config-printer
+		net-print/cups-pk-helper )
 	input_devices_wacom? (
 		>=dev-libs/libwacom-0.7
 		x11-drivers/xf86-input-wacom
 		x11-libs/libXtst )
 	smartcard? ( >=dev-libs/nss-3.11.2 )
 	systemd? ( sys-apps/systemd:0= )
-	!systemd? (	sys-auth/elogind:0= )
+	!systemd? ( sys-auth/elogind:0= )
 "
 DEPEND="${RDEPEND}
 	dev-libs/libxml2:2

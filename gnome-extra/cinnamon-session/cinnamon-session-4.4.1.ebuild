@@ -1,8 +1,8 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
-inherit meson eutils gnome2-utils xdg
+inherit meson gnome2-utils xdg
 
 DESCRIPTION="Cinnamon session manager"
 HOMEPAGE="http://developer.linuxmint.com/projects/cinnamon-projects.html"

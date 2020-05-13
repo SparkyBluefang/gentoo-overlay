@@ -3,10 +3,10 @@
 
 EAPI=6
 GNOME2_LA_PUNT="yes"
-PYTHON_COMPAT=( python3_{6,7,8} )
+PYTHON_COMPAT=( python3_{6,7} )
 PYTHON_REQ_USE="xml"
 
-inherit autotools eutils flag-o-matic gnome2 multilib pax-utils python-r1
+inherit autotools eutils flag-o-matic gnome2 multilib pax-utils python-single-r1
 
 DESCRIPTION="A fork of GNOME Shell with layout similar to GNOME 2"
 HOMEPAGE="http://developer.linuxmint.com/projects/cinnamon-projects.html"
@@ -20,10 +20,7 @@ LICENSE="GPL-2+"
 SLOT="0"
 
 IUSE="+nls +networkmanager"
-
-REQUIRED_USE="${PYTHON_REQUIRED_USE}
-	|| ( $(python_gen_useflags 'python3*') )
-"
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 KEYWORDS="~amd64 ~x86"
 
@@ -97,6 +94,7 @@ RDEPEND="${COMMON_DEPEND}
 		dev-python/setproctitle[${PYTHON_USEDEP}]
 		dev-python/tinycss[${PYTHON_USEDEP}]
 		dev-python/pytz[${PYTHON_USEDEP}]
+		dev-python/xapp[${PYTHON_USEDEP}]
 	')
 
 	x11-themes/gnome-themes-standard
@@ -122,10 +120,6 @@ DEPEND="${COMMON_DEPEND}
 
 S="${WORKDIR}/cinnamon-${PV}"
 
-pkg_setup() {
-	python_setup
-}
-
 src_prepare() {
 	# Fix backgrounds path as cinnamon doesn't provide them
 	# https://github.com/linuxmint/Cinnamon/issues/3575
@@ -140,9 +134,8 @@ src_prepare() {
 	sed -i 's/RequiredComponents=\(.*\)$/RequiredComponents=\1polkit-gnome-authentication-agent-1;/' \
 		files/cinnamon*.session.in || die
 
-	# python 2-and-3 shebang fixing craziness
+	# shebang fixing craziness
 	local p
-	python_setup 'python3*'
 	for p in $(grep -rl '#!.*python3'); do
 		python_fix_shebang "${p}"
 	done
@@ -161,7 +154,7 @@ src_configure() {
 
 src_install() {
 	gnome2_src_install
-	python_optimize "${ED}"usr/$(get_libdir)/cinnamon-*
+	python_optimize "${ED}"usr/share/cinnamon/
 
 	# Required for gnome-shell on hardened/PaX, bug #398941
 	pax-mark mr "${ED}usr/bin/cinnamon"

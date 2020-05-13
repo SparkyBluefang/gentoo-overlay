@@ -1,4 +1,4 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -18,7 +18,7 @@ RDEPEND="
 	>=dev-libs/glib-2.37.3:2
 	>=dev-libs/gobject-introspection-1.38:=
 	sys-libs/readline:0=
-	virtual/libffi:0=
+	dev-libs/libffi:0=
 	cairo? ( x11-libs/cairo[X,glib] )
 	gtk? ( x11-libs/gtk+:3 )
 "

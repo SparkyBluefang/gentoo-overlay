@@ -4,7 +4,7 @@
 EAPI=7
 PYTHON_COMPAT=( python3_{6,7,8} )
 
-inherit meson eutils gnome2-utils python-any-r1 virtualx xdg
+inherit meson gnome2-utils python-any-r1 virtualx xdg
 
 DESCRIPTION="A file manager for Cinnamon, forked from Nautilus"
 HOMEPAGE="http://developer.linuxmint.com/projects/cinnamon-projects.html"

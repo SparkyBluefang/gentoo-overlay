@@ -1,10 +1,11 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
+PYTHON_COMPAT=( python3_{6,7,8} )
 
 VALA_USE_DEPEND="vapigen"
-inherit vala meson xdg
+inherit vala meson python-r1 xdg
 
 DESCRIPTION="Cross-desktop libraries and common resources"
 HOMEPAGE="https://github.com/linuxmint/xapps/"
@@ -31,6 +32,11 @@ DEPEND="${RDEPEND}
 	doc? ( dev-util/gtk-doc )
 	$(vala_depend)
 "
+BDEPEND="
+	${PYTHON_DEPS}
+	dev-util/gdbus-codegen
+	dev-python/pygobject:3[${PYTHON_USEDEP}]
+"
 
 src_prepare() {
 	xdg_environment_reset
@@ -41,6 +47,7 @@ src_prepare() {
 src_configure() {
 	local emesonargs=(
 		$(meson_use doc docs)
+		-Dpy-overrides-dir="/pygobject"
 	)
 	meson_src_configure
 }
@@ -51,4 +58,16 @@ src_install() {
 
 	# package provides .pc files
 	find "${D}" -name '*.la' -delete || die
+
+	# copy pygobject files to each active python target
+	# work-around for "py-overrides-dir" only supporting a single target
+	install_pygobject_override() {
+		PYTHON_GI_OVERRIDESDIR=$("${PYTHON}" -c 'import gi;print(gi._overridesdir)') || die
+		einfo "gobject overrides directory: $PYTHON_GI_OVERRIDESDIR"
+		mkdir -p "${ED}/$PYTHON_GI_OVERRIDESDIR/"
+		cp -r "${D}"/pygobject/* "${ED}/$PYTHON_GI_OVERRIDESDIR/" || die
+		python_optimize
+	}
+	python_foreach_impl install_pygobject_override
+	rm -rf "${D}/pygobject" || die
 }

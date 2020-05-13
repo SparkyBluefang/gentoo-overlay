@@ -4,7 +4,7 @@
 EAPI=6
 PYTHON_COMPAT=( python3_{6,7,8} )
 
-inherit autotools gnome2 multilib python-single-r1
+inherit autotools gnome2 python-single-r1
 
 DESCRIPTION="Screensaver for Cinnamon"
 HOMEPAGE="http://developer.linuxmint.com/projects/cinnamon-projects.html"
@@ -41,10 +41,10 @@ COMMON_DEPEND="
 RDEPEND="${COMMON_DEPEND}
 	!~gnome-extra/cinnamon-1.8.8.1
 	$(python_gen_cond_dep '
-		dev-python/pygobject:3[${PYTHON_MULTI_USEDEP}]
-		dev-python/setproctitle[${PYTHON_MULTI_USEDEP}]
-		dev-python/xapp[${PYTHON_MULTI_USEDEP}]
-		dev-python/psutil[${PYTHON_MULTI_USEDEP}]
+		dev-python/pygobject:3[${PYTHON_USEDEP}]
+		dev-python/setproctitle[${PYTHON_USEDEP}]
+		dev-python/xapp[${PYTHON_USEDEP}]
+		dev-python/psutil[${PYTHON_USEDEP}]
 	')
 "
 DEPEND="${COMMON_DEPEND}
@@ -58,11 +58,13 @@ DEPEND="${COMMON_DEPEND}
 		app-text/docbook-xml-dtd:4.4 )
 "
 
-pkg_setup() {
-	python_setup
-}
-
 src_prepare() {
+	# shebang fixing craziness
+	local p
+	for p in $(grep -rl '#!.*python3'); do
+		python_fix_shebang "${p}"
+	done
+
 	eautoreconf
 	gnome2_src_prepare
 }
