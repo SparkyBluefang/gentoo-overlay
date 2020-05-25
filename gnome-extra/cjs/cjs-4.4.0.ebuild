@@ -5,7 +5,7 @@ EAPI=6
 inherit autotools gnome2 pax-utils virtualx
 
 DESCRIPTION="Linux Mint's fork of gjs for Cinnamon"
-HOMEPAGE="http://developer.linuxmint.com/projects/cinnamon-projects.html"
+HOMEPAGE="https://projects.linuxmint.com/cinnamon/"
 SRC_URI="https://github.com/linuxmint/cjs/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="MIT || ( MPL-1.1 LGPL-2+ GPL-2+ )"
@@ -15,8 +15,8 @@ KEYWORDS="~amd64 ~x86"
 
 RDEPEND="
 	dev-lang/spidermonkey:52
-	>=dev-libs/glib-2.37.3:2
-	>=dev-libs/gobject-introspection-1.38:=
+	>=dev-libs/glib-2.42:2
+	>=dev-libs/gobject-introspection-1.41.4:=
 	sys-libs/readline:0=
 	dev-libs/libffi:0=
 	cairo? ( x11-libs/cairo[X,glib] )
@@ -38,17 +38,17 @@ RESTRICT="test"
 src_prepare() {
 	eautoreconf
 	gnome2_src_prepare
-	sed -ie "s/gjs-console/cjs-console/g" \
-		"${S}"/installed-tests/scripts/testCommandLine.sh \
-		"${S}"/installed-tests/scripts/testWarnings.sh || die
 
+	# Fixed in 4.6.0
 	sed -ie "s/Gjs-WARNING/Cjs-WARNING/g" \
 		"${S}"/installed-tests/scripts/testCommandLine.sh || die
 
+	# Fixed in 4.6.0
+	sed -ie "s/40000/50000/g" \
+		"${S}"/installed-tests/js/testSystem.js || die
+
 	sed -ie "s/'Gjs'/'Cjs'/g" \
 		"${S}"/installed-tests/js/testExceptions.js \
-		"${S}"/installed-tests/js/testSignals.js \
-		"${S}"/installed-tests/js/testGDBus.js \
 		"${S}"/installed-tests/js/testEverythingBasic.js || die
 }
 

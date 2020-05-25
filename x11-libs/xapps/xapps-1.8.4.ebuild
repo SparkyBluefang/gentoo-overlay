@@ -5,7 +5,7 @@ EAPI=7
 PYTHON_COMPAT=( python3_{6,7,8} )
 
 VALA_USE_DEPEND="vapigen"
-inherit vala meson python-r1 xdg
+inherit gnome2-utils vala meson python-r1 xdg-utils
 
 DESCRIPTION="Cross-desktop libraries and common resources"
 HOMEPAGE="https://github.com/linuxmint/xapps/"
@@ -15,7 +15,7 @@ SRC_URI="https://github.com/linuxmint/xapps/archive/${PV}.tar.gz -> ${P}.tar.gz"
 KEYWORDS="~amd64 ~x86"
 
 SLOT="0"
-IUSE="doc introspection static-libs"
+IUSE="gtk-doc introspection static-libs"
 
 RDEPEND="
 	>=dev-libs/glib-2.37.3:2
@@ -25,17 +25,19 @@ RDEPEND="
 	>=x11-libs/gdk-pixbuf-2.22.0:2[introspection?]
 	>=x11-libs/gtk+-3.3.16:3[introspection?]
 	x11-libs/libxkbfile
-	dev-libs/libdbusmenu[gtk3,introspection?]
+	dev-libs/libdbusmenu[gtk3]
 "
 DEPEND="${RDEPEND}
 	sys-devel/gettext
-	doc? ( dev-util/gtk-doc )
+	gtk-doc? ( dev-util/gtk-doc )
 	$(vala_depend)
 "
 BDEPEND="
 	${PYTHON_DEPS}
-	dev-util/gdbus-codegen
 	dev-python/pygobject:3[${PYTHON_USEDEP}]
+	dev-util/gdbus-codegen
+	>=dev-util/intltool-0.40.6
+	sys-devel/gettext
 "
 
 src_prepare() {
@@ -46,7 +48,7 @@ src_prepare() {
 
 src_configure() {
 	local emesonargs=(
-		$(meson_use doc docs)
+		$(meson_use gtk-doc docs)
 		-Dpy-overrides-dir="/pygobject"
 	)
 	meson_src_configure
@@ -70,4 +72,14 @@ src_install() {
 	}
 	python_foreach_impl install_pygobject_override
 	rm -rf "${D}/pygobject" || die
+}
+
+pkg_postinst() {
+	xdg_icon_cache_update
+	gnome2_schemas_update
+}
+
+pkg_postrm() {
+	xdg_icon_cache_update
+	gnome2_schemas_update
 }

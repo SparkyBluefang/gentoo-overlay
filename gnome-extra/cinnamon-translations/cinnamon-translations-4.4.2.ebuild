@@ -6,17 +6,16 @@ PLOCALES="af am an ar as ast az be be@latin bg bn bn_IN br bs ca ca@valencia crh
 inherit l10n
 
 DESCRIPTION="Translation data for Cinnamon"
-HOMEPAGE="http://developer.linuxmint.com/projects/cinnamon-projects.html"
+HOMEPAGE="https://projects.linuxmint.com/cinnamon/"
 SRC_URI="https://github.com/linuxmint/cinnamon-translations/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
 
 DEPEND=">gnome-extra/cinnamon-settings-daemon-3.6"
 RDEPEND="${DEPEND}"
-RESTRICT="test" # tests are for upstream translators and need network access
+BDEPEND="sys-devel/gettext"
 
 src_configure() { :; }
 
@@ -25,7 +24,6 @@ src_install() {
 	l10n_find_plocales_changes "${S}"/usr/share/locale "" ""
 
 	install_locale() {
-		dodir /usr/share/locale
 		insinto /usr/share/locale
 		doins -r usr/share/locale/${1}
 	}

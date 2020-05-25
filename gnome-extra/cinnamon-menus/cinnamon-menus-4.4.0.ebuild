@@ -5,13 +5,13 @@ EAPI=7
 inherit meson xdg
 
 DESCRIPTION="Cinnamon's library for the Desktop Menu fd.o specification"
-HOMEPAGE="http://developer.linuxmint.com/projects/cinnamon-projects.html"
+HOMEPAGE="https://projects.linuxmint.com/cinnamon/"
 SRC_URI="https://github.com/linuxmint/cinnamon-menus/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2+ LGPL-2+"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="debug doc"
+IUSE="debug gtk-doc"
 
 RDEPEND="
 	>=dev-libs/glib-2.29.15:2
@@ -19,16 +19,18 @@ RDEPEND="
 "
 DEPEND="${RDEPEND}
 	dev-libs/gobject-introspection-common
-	>=dev-util/intltool-0.40
+"
+BDEPEND="
+	>=dev-util/intltool-0.40.6
 	sys-devel/gettext
 	virtual/pkgconfig
-	doc? ( dev-util/gtk-doc )
+	gtk-doc? ( dev-util/gtk-doc )
 "
 
 src_configure() {
 	local emesonargs=(
-		$(meson_use doc enable_docs)
 		$(meson_use debug enable_debug)
+		$(meson_use gtk-doc enable_docs)
 	)
 	meson_src_configure
 }

@@ -7,7 +7,7 @@ GNOME2_LA_PUNT="yes"
 inherit autotools eutils gnome2 virtualx
 
 DESCRIPTION="Cinnamon's settings daemon"
-HOMEPAGE="http://developer.linuxmint.com/projects/cinnamon-projects.html"
+HOMEPAGE="https://projects.linuxmint.com/cinnamon/"
 SRC_URI="https://github.com/linuxmint/cinnamon-settings-daemon/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2+"
@@ -21,12 +21,11 @@ RDEPEND="
 	>=dev-libs/glib-2.38:2
 	dev-libs/libgudev:=
 	>=gnome-base/libgnomekbd-3.6
-	>=gnome-base/librsvg-2.36.2
-	>=gnome-extra/cinnamon-desktop-2.8.0:0=
+	>=gnome-extra/cinnamon-desktop-4.4:0=
 	media-libs/fontconfig
 	>=media-libs/lcms-2.2:2
 	media-libs/libcanberra:0=[gtk3]
-	sys-apps/dbus
+	>=sys-apps/dbus-1.1.2
 	>=sys-auth/polkit-0.97
 	x11-libs/gdk-pixbuf:2
 	>=x11-libs/gtk+-3.9.10:3
@@ -35,7 +34,7 @@ RDEPEND="
 	x11-libs/libXext
 	x11-libs/libXfixes
 	x11-libs/libXi
-	x11-libs/libxklavier
+	>=x11-libs/libxklavier-5.0
 	>=sys-power/upower-0.9.11
 
 	colord? ( >=x11-misc/colord-0.1.27:= )
@@ -45,6 +44,7 @@ RDEPEND="
 		net-print/cups-pk-helper )
 	input_devices_wacom? (
 		>=dev-libs/libwacom-0.7
+		>=gnome-base/librsvg-2.36.2
 		x11-drivers/xf86-input-wacom
 		x11-libs/libXtst )
 	smartcard? ( >=dev-libs/nss-3.11.2 )
@@ -52,6 +52,7 @@ RDEPEND="
 	!systemd? ( sys-auth/elogind:0= )
 "
 DEPEND="${RDEPEND}
+	dev-util/gdbus-codegen
 	dev-libs/libxml2:2
 	>=dev-util/intltool-0.37.1
 	x11-base/xorg-proto

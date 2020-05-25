@@ -9,7 +9,7 @@ PYTHON_REQ_USE="xml"
 inherit autotools eutils flag-o-matic gnome2 multilib pax-utils python-single-r1
 
 DESCRIPTION="A fork of GNOME Shell with layout similar to GNOME 2"
-HOMEPAGE="http://developer.linuxmint.com/projects/cinnamon-projects.html"
+HOMEPAGE="https://projects.linuxmint.com/cinnamon/"
 
 MY_PV="${PV/_p/-UP}"
 MY_P="${PN}-${MY_PV}"
@@ -19,7 +19,7 @@ SRC_URI="https://github.com/linuxmint/cinnamon/archive/${MY_PV}.tar.gz -> ${MY_P
 LICENSE="GPL-2+"
 SLOT="0"
 
-IUSE="+nls +networkmanager"
+IUSE="gtk-doc +nls +networkmanager"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 KEYWORDS="~amd64 ~x86"
@@ -30,15 +30,11 @@ COMMON_DEPEND="${PYTHON_DEPS}
 	dev-libs/dbus-glib
 	>=dev-libs/glib-2.35.0:2[dbus]
 	>=dev-libs/gobject-introspection-1.29.15:=
-	>=dev-libs/json-glib-0.13.2
 	>=dev-libs/libcroco-0.6.2:0.6
 	dev-libs/libxml2:2
-	gnome-base/librsvg
-	>=gnome-extra/cinnamon-desktop-4.0:0=[introspection]
+	>=gnome-extra/cinnamon-desktop-4.4:0=
 	>=gnome-extra/cinnamon-menus-4.4
-	>=gnome-extra/cjs-4.0.0[cairo]
-	>=media-libs/clutter-1.10:1.0[introspection]
-	media-libs/cogl:1.0=[introspection]
+	>=gnome-extra/cjs-4.4.0[cairo]
 	>=gnome-base/gsettings-desktop-schemas-2.91.91
 	media-libs/gstreamer:1.0
 	media-libs/gst-plugins-base:1.0
@@ -71,11 +67,11 @@ COMMON_DEPEND="${PYTHON_DEPS}
 # TODO(lxnay): fix error: libgnome-desktop/gnome-rr-labeler.h: No such file or directory
 RDEPEND="${COMMON_DEPEND}
 	>=gnome-base/dconf-0.4.1
-	>=gnome-base/libgnomekbd-2.91.4[introspection]
+	>=gnome-base/libgnomekbd-2.91.4
 	sys-power/upower[introspection]
 
-	>=gnome-extra/cinnamon-session-4.0
-	>=gnome-extra/cinnamon-settings-daemon-4.0
+	>=gnome-extra/cinnamon-session-4.4
+	>=gnome-extra/cinnamon-settings-daemon-4.4
 
 	>=app-accessibility/caribou-0.3
 
@@ -100,25 +96,23 @@ RDEPEND="${COMMON_DEPEND}
 	x11-themes/gnome-themes-standard
 	x11-themes/adwaita-icon-theme
 
-	>=gnome-extra/nemo-4.0
-	>=gnome-extra/cinnamon-control-center-4.0[networkmanager=]
-	>=gnome-extra/cinnamon-screensaver-4.0
+	>=gnome-extra/nemo-4.4
+	>=gnome-extra/cinnamon-control-center-4.4[networkmanager=]
+	>=gnome-extra/cinnamon-screensaver-4.4
 
 	gnome-extra/polkit-gnome
 
-	nls? ( >=gnome-extra/cinnamon-translations-4.0 )
+	nls? ( >=gnome-extra/cinnamon-translations-4.4 )
 "
 DEPEND="${COMMON_DEPEND}
-	dev-util/gtk-doc
-	>=dev-util/intltool-0.4
+	>=dev-util/intltool-0.40
 	>=sys-devel/gettext-0.17
 	virtual/pkgconfig
 	!!=dev-lang/spidermonkey-1.8.2*
+	gtk-doc? ( dev-util/gtk-doc )
 "
 # libmozjs.so is picked up from /usr/lib while compiling, so block at build-time
 # https://bugs.gentoo.org/show_bug.cgi?id=360413
-
-S="${WORKDIR}/cinnamon-${PV}"
 
 src_prepare() {
 	# Fix backgrounds path as cinnamon doesn't provide them
@@ -148,6 +142,7 @@ src_configure() {
 	gnome2_src_configure \
 		--libdir="${EPREFIX}/usr/$(get_libdir)" \
 		--with-ca-certificates="${EPREFIX}/etc/ssl/certs/ca-certificates.crt" \
+		$(use_enable gtk-doc) \
 		$(use_enable networkmanager) \
 		BROWSER_PLUGIN_DIR="${EPREFIX}/usr/$(get_libdir)/nsbrowser/plugins"
 }
@@ -177,17 +172,5 @@ pkg_postinst() {
 		ewarn "you need to either install media-libs/gst-plugins-good:1.0"
 		ewarn "and media-plugins/gst-plugins-vpx:1.0, or use dconf-editor to change"
 		ewarn "org.cinnamon.recorder/pipeline to what you want to use."
-	fi
-
-	if ! has_version ">=x11-base/xorg-server-1.11"; then
-		ewarn "If you use multiple screens, it is highly recommended that you"
-		ewarn "upgrade to >=x11-base/xorg-server-1.11 to be able to make use of"
-		ewarn "pointer barriers which will make it easier to use hot corners."
-	fi
-
-	if has_version "<x11-drivers/ati-drivers-12"; then
-		ewarn "Cinnamon has been reported to show graphical corruption under"
-		ewarn "x11-drivers/ati-drivers-11.*; you may want to switch to"
-		ewarn "open-source drivers."
 	fi
 }
