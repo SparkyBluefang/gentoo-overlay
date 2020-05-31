@@ -32,9 +32,9 @@ COMMON_DEPEND="${PYTHON_DEPS}
 	>=dev-libs/gobject-introspection-1.29.15:=
 	>=dev-libs/libcroco-0.6.2:0.6
 	dev-libs/libxml2:2
-	>=gnome-extra/cinnamon-desktop-4.4:0=
-	>=gnome-extra/cinnamon-menus-4.4
-	>=gnome-extra/cjs-4.4.0[cairo]
+	>=gnome-extra/cinnamon-desktop-4.6:0=
+	>=gnome-extra/cinnamon-menus-4.6
+	>=gnome-extra/cjs-4.6[cairo]
 	>=gnome-base/gsettings-desktop-schemas-2.91.91
 	media-libs/gstreamer:1.0
 	media-libs/gst-plugins-base:1.0
@@ -60,7 +60,7 @@ COMMON_DEPEND="${PYTHON_DEPS}
 # 6. caribou needed for on-screen keyboard
 # 7. xdg-utils needed for xdg-open, used by extension tool
 # 8. imaging, lxml needed for cinnamon-settings
-# 9. gnome-icon-theme-symbolic needed for various icons
+# 9. adwaita-icon-theme needed for various icons
 # 10. pygobject needed for menu editor
 # 11. nemo - default file manager, tightly integrated with cinnamon
 # 12. polkit-gnome - explicitly autostarted by us
@@ -70,8 +70,8 @@ RDEPEND="${COMMON_DEPEND}
 	>=gnome-base/libgnomekbd-2.91.4
 	sys-power/upower[introspection]
 
-	>=gnome-extra/cinnamon-session-4.4
-	>=gnome-extra/cinnamon-settings-daemon-4.4
+	>=gnome-extra/cinnamon-session-4.6
+	>=gnome-extra/cinnamon-settings-daemon-4.6
 
 	>=app-accessibility/caribou-0.3
 
@@ -81,6 +81,7 @@ RDEPEND="${COMMON_DEPEND}
 
 	$(python_gen_cond_dep '
 		dev-python/dbus-python[${PYTHON_USEDEP}]
+		dev-python/distro[${PYTHON_USEDEP}]
 		dev-python/pygobject:3[${PYTHON_USEDEP}]
 		dev-python/pexpect[${PYTHON_USEDEP}]
 		dev-python/pycairo[${PYTHON_USEDEP}]
@@ -88,7 +89,7 @@ RDEPEND="${COMMON_DEPEND}
 		dev-python/pypam[${PYTHON_USEDEP}]
 		dev-python/pillow[${PYTHON_USEDEP}]
 		dev-python/setproctitle[${PYTHON_USEDEP}]
-		dev-python/tinycss[${PYTHON_USEDEP}]
+		dev-python/tinycss2[${PYTHON_USEDEP}]
 		dev-python/pytz[${PYTHON_USEDEP}]
 		dev-python/xapp[${PYTHON_USEDEP}]
 	')
@@ -96,13 +97,13 @@ RDEPEND="${COMMON_DEPEND}
 	x11-themes/gnome-themes-standard
 	x11-themes/adwaita-icon-theme
 
-	>=gnome-extra/nemo-4.4
-	>=gnome-extra/cinnamon-control-center-4.4[networkmanager=]
-	>=gnome-extra/cinnamon-screensaver-4.4
+	>=gnome-extra/nemo-4.6
+	>=gnome-extra/cinnamon-control-center-4.6[networkmanager=]
+	>=gnome-extra/cinnamon-screensaver-4.6
 
 	gnome-extra/polkit-gnome
 
-	nls? ( >=gnome-extra/cinnamon-translations-4.4 )
+	nls? ( >=gnome-extra/cinnamon-translations-4.6 )
 "
 DEPEND="${COMMON_DEPEND}
 	>=dev-util/intltool-0.40

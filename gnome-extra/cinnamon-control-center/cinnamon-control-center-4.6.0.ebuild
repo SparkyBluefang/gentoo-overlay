@@ -24,7 +24,7 @@ COMMON_DEPEND="
 	>=dev-libs/glib-2.31:2
 	dev-libs/libxml2:2
 	>=gnome-base/libgnomekbd-2.91.91:0=
-	>=gnome-extra/cinnamon-desktop-4.4:0=
+	>=gnome-extra/cinnamon-desktop-4.6:0=
 	>=gnome-extra/cinnamon-menus-4.4:0=
 	>=gnome-extra/cinnamon-settings-daemon-4.4:0=
 	media-libs/fontconfig
@@ -70,15 +70,9 @@ src_prepare() {
 }
 
 src_configure() {
-	# cups, documentation, and systemd don't do anything
-	# and have been removed in the next release. So 
-	# disable them for now.
 	gnome2_src_configure \
 		--disable-static \
 		--disable-onlineaccounts \
-		--disable-cups \
-		--disable-documentation \
-		--disable-systemd \
 		$(use_enable colord color) \
 		$(usex debug --enable-debug=yes ' ') \
 		$(use_enable input_devices_wacom wacom) \

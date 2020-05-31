@@ -28,24 +28,13 @@ DEPEND="${RDEPEND}
 	test? ( sys-apps/dbus )
 	sys-devel/autoconf-archive
 "
-# Cinnamon 2.2 does not work with this release.
-RDEPEND="${RDEPEND}
-	!<gnome-extra/cinnamon-2.4
-"
+RDEPEND="${RDEPEND}"
 
 RESTRICT="test"
 
 src_prepare() {
 	eautoreconf
 	gnome2_src_prepare
-
-	# Fixed in 4.6.0
-	sed -ie "s/Gjs-WARNING/Cjs-WARNING/g" \
-		"${S}"/installed-tests/scripts/testCommandLine.sh || die
-
-	# Fixed in 4.6.0
-	sed -ie "s/40000/50000/g" \
-		"${S}"/installed-tests/js/testSystem.js || die
 
 	sed -ie "s/'Gjs'/'Cjs'/g" \
 		"${S}"/installed-tests/js/testExceptions.js \
@@ -71,8 +60,8 @@ src_install() {
 	gnome2_src_install -j1
 
 	if use examples; then
-		insinto /usr/share/doc/"${PF}"/examples
-		doins "${S}"/examples/*
+		docinto examples
+		dodoc "${S}"/examples/*
 	fi
 
 	# Required for cjs-console to run correctly on PaX systems

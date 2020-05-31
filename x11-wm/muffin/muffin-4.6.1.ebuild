@@ -46,7 +46,6 @@ COMMON_DEPEND="
 # needs gtk-doc, not just -am, for gtk-doc.make
 DEPEND="${COMMON_DEPEND}
 	${PYTHON_DEPS}
-	>=app-text/gnome-doc-utils-0.8
 	sys-devel/gettext
 	dev-util/gtk-doc
 	dev-util/gtk-doc-am
@@ -60,19 +59,15 @@ RDEPEND="${COMMON_DEPEND}
 "
 
 src_prepare() {
-	# Fixes from 4.6.0.
-	eapply "${FILESDIR}"/muffin-4.4-{gobject-introspection,gir}-fixes.patch
-
 	eautoreconf
 	gnome2_src_prepare
 }
 
-# Wayland is not supported upstream. Disabled by default in 4.6.0.
+# Wayland is not supported upstream.
 src_configure() {
 	DOCS="AUTHORS ChangeLog HACKING MAINTAINERS NEWS README* *.txt doc/*.txt"
 	gnome2_src_configure \
 		--disable-static \
-		--disable-wayland-egl-server \
 		--enable-shape \
 		--enable-sm \
 		--enable-startup-notification \

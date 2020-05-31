@@ -1,10 +1,10 @@
 # Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 PYTHON_COMPAT=( python3_{6,7,8} )
 
-inherit autotools gnome2 python-single-r1
+inherit meson python-single-r1 xdg
 
 DESCRIPTION="Screensaver for Cinnamon"
 HOMEPAGE="https://projects.linuxmint.com/cinnamon/"
@@ -12,15 +12,14 @@ SRC_URI="https://github.com/linuxmint/cinnamon-screensaver/archive/${PV}.tar.gz 
 
 LICENSE="GPL-2+"
 SLOT="0"
-IUSE="debug systemd xinerama"
-REQUIRED_USE="${PYTHON_REQUIRED_USE}"
+IUSE="elogind systemd xinerama"
+REQUIRED_USE="^^ ( elogind systemd ) ${PYTHON_REQUIRED_USE}"
 KEYWORDS="~amd64 ~x86"
 
 COMMON_DEPEND="
 	>=dev-libs/glib-2.37.3:2[dbus]
-	>=x11-libs/gtk+-3.1.4:3[introspection]
-	>=gnome-extra/cinnamon-desktop-4.4:0=
-	>=gnome-base/gsettings-desktop-schemas-0.1.7
+	>=x11-libs/gtk+-3.22:3[introspection]
+	>=gnome-extra/cinnamon-desktop-4.6:0=
 	>=dev-libs/dbus-glib-0.78
 
 	sys-apps/dbus
@@ -34,7 +33,6 @@ COMMON_DEPEND="
 
 	xinerama? ( x11-libs/libXinerama )
 "
-
 RDEPEND="${COMMON_DEPEND}
 	$(python_gen_cond_dep '
 		dev-python/pygobject:3[${PYTHON_USEDEP}]
@@ -43,25 +41,35 @@ RDEPEND="${COMMON_DEPEND}
 		dev-python/psutil[${PYTHON_USEDEP}]
 	')
 	systemd? ( >=sys-apps/systemd-31 )
-	!systemd? ( sys-auth/elogind )
+	elogind? ( sys-auth/elogind )
 "
 DEPEND="${COMMON_DEPEND}
+	x11-base/xorg-proto
+"
+BDEPEND="
 	dev-util/gdbus-codegen
 	>=dev-util/intltool-0.40
 	sys-devel/gettext
 	virtual/pkgconfig
-	x11-base/xorg-proto
 "
 
-src_prepare() {
-	python_fix_shebang src
+PATCHES=(
+	"${FILESDIR}"/${PN}-4.6.0-python-build.patch
+)
 
-	eautoreconf
-	gnome2_src_prepare
+src_prepare() {
+	xdg_src_prepare
+	python_fix_shebang src
 }
 
 src_configure() {
-	gnome2_src_configure \
-		$(usex debug --enable-debug ' ') \
-		$(use_enable xinerama)
+	local emesonargs=(
+		$(meson_use xinerama)
+	)
+	meson_src_configure
+}
+
+src_install() {
+	meson_src_install
+	python_optimize "${ED}"/usr/share/cinnamon-screensaver/
 }

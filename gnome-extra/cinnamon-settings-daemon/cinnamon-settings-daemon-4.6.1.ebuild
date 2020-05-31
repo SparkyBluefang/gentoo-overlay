@@ -13,7 +13,8 @@ SRC_URI="https://github.com/linuxmint/cinnamon-settings-daemon/archive/${PV}.tar
 LICENSE="GPL-2+"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="+colord cups input_devices_wacom smartcard systemd"
+IUSE="+colord cups elogind input_devices_wacom smartcard systemd"
+REQUIRED_USE="^^ ( elogind systemd )"
 RESTRICT=test
 
 # udev is non-optional since lots of plugins, not just gudev, pull it in
@@ -21,7 +22,7 @@ RDEPEND="
 	>=dev-libs/glib-2.38:2
 	dev-libs/libgudev:=
 	>=gnome-base/libgnomekbd-3.6
-	>=gnome-extra/cinnamon-desktop-4.4:0=
+	>=gnome-extra/cinnamon-desktop-4.6:0=
 	media-libs/fontconfig
 	>=media-libs/lcms-2.2:2
 	media-libs/libcanberra:0=[gtk3]
@@ -49,7 +50,7 @@ RDEPEND="
 		x11-libs/libXtst )
 	smartcard? ( >=dev-libs/nss-3.11.2 )
 	systemd? ( sys-apps/systemd:0= )
-	!systemd? ( sys-auth/elogind:0= )
+	elogind? ( sys-auth/elogind:0= )
 "
 DEPEND="${RDEPEND}
 	dev-util/gdbus-codegen
@@ -60,10 +61,8 @@ DEPEND="${RDEPEND}
 "
 
 src_prepare() {
-	# make colord and wacom optional
-	eapply "${FILESDIR}"/${PN}-3.0.1-optional.patch
+	# make accountservice optional
 	eapply "${FILESDIR}"/${PN}-3.8.0-accountservice.patch
-	eapply "${FILESDIR}"/${PN}-4.4.0-systemd.patch
 
 	# Disable broken test
 	sed -e '/g_test_add_func ("\/color\/edid/d' \

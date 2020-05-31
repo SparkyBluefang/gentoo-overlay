@@ -47,11 +47,6 @@ BDEPEND="
 		dev-libs/libxslt )
 "
 
-PATCHES=(
-	"${FILESDIR}"/${PN}-3.8.0-elogind.patch
-	"${FILESDIR}"/${PN}-3.8.0-elogind2.patch
-)
-
 src_configure() {
 	local emesonargs=(
 		-Dgconf=false

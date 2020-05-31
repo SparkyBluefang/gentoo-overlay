@@ -16,8 +16,10 @@ KEYWORDS="~amd64 ~x86"
 
 SLOT="0"
 IUSE="gtk-doc introspection static-libs"
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 RDEPEND="
+	${PYTHON_DEPS}
 	>=dev-libs/glib-2.37.3:2
 	dev-libs/gobject-introspection:0=
 	gnome-base/libgnomekbd
@@ -56,7 +58,7 @@ src_configure() {
 
 src_install() {
 	meson_src_install
-	rm -rf "${ED%/}"/usr/bin || die
+	rm -rf "${ED}/usr/bin" || die
 
 	# package provides .pc files
 	find "${D}" -name '*.la' -delete || die
@@ -68,7 +70,7 @@ src_install() {
 		einfo "gobject overrides directory: $PYTHON_GI_OVERRIDESDIR"
 		mkdir -p "${ED}/$PYTHON_GI_OVERRIDESDIR/"
 		cp -r "${D}"/pygobject/* "${ED}/$PYTHON_GI_OVERRIDESDIR/" || die
-		python_optimize
+		python_optimize "${ED}/$PYTHON_GI_OVERRIDESDIR/"
 	}
 	python_foreach_impl install_pygobject_override
 	rm -rf "${D}/pygobject" || die

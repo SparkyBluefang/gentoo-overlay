@@ -4,7 +4,7 @@
 EAPI=7
 PYTHON_COMPAT=( python3_{6,7,8} )
 
-inherit meson gnome2-utils python-any-r1 virtualx xdg
+inherit meson gnome2-utils python-single-r1 virtualx xdg
 
 DESCRIPTION="A file manager for Cinnamon, forked from Nautilus"
 HOMEPAGE="https://projects.linuxmint.com/cinnamon/"
@@ -13,7 +13,8 @@ SRC_URI="https://github.com/linuxmint/nemo/archive/${PV}.tar.gz -> ${P}.tar.gz"
 LICENSE="GPL-2+ LGPL-2+ FDL-1.1"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="doc exif +nls selinux xmp"
+IUSE="doc exif +nls selinux tracker xmp"
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 RESTRICT=test
 
 COMMON_DEPEND="
@@ -31,13 +32,14 @@ COMMON_DEPEND="
 	>=x11-libs/xapps-1.4.0
 
 	exif? ( >=media-libs/libexif-0.6.20:= )
+	tracker? ( >=app-misc/tracker-2.0:= )
 	xmp? ( >=media-libs/exempi-2.2.0:= )
 	selinux? ( sys-libs/libselinux )
 "
 RDEPEND="${COMMON_DEPEND}
 	x11-themes/adwaita-icon-theme
 	nls? ( >=gnome-extra/cinnamon-translations-4.4 )
-	$(python_gen_any_dep '
+	$(python_gen_cond_dep '
 		dev-python/polib[${PYTHON_USEDEP}]
 		dev-python/pygobject:3[${PYTHON_USEDEP}]
 	')
@@ -54,9 +56,16 @@ BDEPEND="
 	doc? ( dev-util/gtk-doc )
 "
 
+src_prepare() {
+	xdg_environment_reset
+	default
+	python_fix_shebang files/usr/share/nemo/actions
+}
+
 src_configure() {
 	local emesonargs=(
 		$(meson_use exif)
+		$(meson_use tracker)
 		$(meson_use xmp)
 		$(meson_use selinux)
 		$(meson_use doc gtk_doc)
