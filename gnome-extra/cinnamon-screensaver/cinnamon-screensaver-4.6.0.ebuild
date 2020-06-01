@@ -12,8 +12,8 @@ SRC_URI="https://github.com/linuxmint/cinnamon-screensaver/archive/${PV}.tar.gz 
 
 LICENSE="GPL-2+"
 SLOT="0"
-IUSE="elogind systemd xinerama"
-REQUIRED_USE="^^ ( elogind systemd ) ${PYTHON_REQUIRED_USE}"
+IUSE="systemd xinerama"
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 KEYWORDS="~amd64 ~x86"
 
 COMMON_DEPEND="
@@ -41,7 +41,7 @@ RDEPEND="${COMMON_DEPEND}
 		dev-python/psutil[${PYTHON_USEDEP}]
 	')
 	systemd? ( >=sys-apps/systemd-31 )
-	elogind? ( sys-auth/elogind )
+	!systemd? ( sys-auth/elogind )
 "
 DEPEND="${COMMON_DEPEND}
 	x11-base/xorg-proto

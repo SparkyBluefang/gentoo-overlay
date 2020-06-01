@@ -54,9 +54,7 @@ DEPEND="${COMMON_DEPEND}
 	x11-base/xorg-proto
 	test? ( app-text/docbook-xml-dtd:4.5 )
 "
-RDEPEND="${COMMON_DEPEND}
-	!x11-misc/expocity
-"
+RDEPEND="${COMMON_DEPEND}"
 
 src_prepare() {
 	eautoreconf

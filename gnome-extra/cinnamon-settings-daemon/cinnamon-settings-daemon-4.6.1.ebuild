@@ -13,8 +13,7 @@ SRC_URI="https://github.com/linuxmint/cinnamon-settings-daemon/archive/${PV}.tar
 LICENSE="GPL-2+"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="+colord cups elogind input_devices_wacom smartcard systemd"
-REQUIRED_USE="^^ ( elogind systemd )"
+IUSE="+colord cups input_devices_wacom smartcard systemd"
 RESTRICT=test
 
 # udev is non-optional since lots of plugins, not just gudev, pull it in
@@ -50,7 +49,7 @@ RDEPEND="
 		x11-libs/libXtst )
 	smartcard? ( >=dev-libs/nss-3.11.2 )
 	systemd? ( sys-apps/systemd:0= )
-	elogind? ( sys-auth/elogind:0= )
+	!systemd? ( sys-auth/elogind:0= )
 "
 DEPEND="${RDEPEND}
 	dev-util/gdbus-codegen

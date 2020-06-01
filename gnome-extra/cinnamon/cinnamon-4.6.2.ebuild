@@ -109,7 +109,6 @@ DEPEND="${COMMON_DEPEND}
 	>=dev-util/intltool-0.40
 	>=sys-devel/gettext-0.17
 	virtual/pkgconfig
-	!!=dev-lang/spidermonkey-1.8.2*
 	gtk-doc? ( dev-util/gtk-doc )
 "
 # libmozjs.so is picked up from /usr/lib while compiling, so block at build-time

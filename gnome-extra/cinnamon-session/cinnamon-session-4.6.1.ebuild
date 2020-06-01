@@ -11,8 +11,7 @@ SRC_URI="https://github.com/linuxmint/cinnamon-session/archive/${PV}.tar.gz -> $
 LICENSE="GPL-2+ FDL-1.1+ LGPL-2+"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="doc elogind ipv6 systemd"
-REQUIRED_USE="^^ ( elogind systemd )"
+IUSE="doc ipv6 systemd"
 
 COMMON_DEPEND="
 	>=dev-libs/glib-2.37.3:2
@@ -32,7 +31,7 @@ COMMON_DEPEND="
 	>=x11-libs/xapps-1.0.4
 	virtual/opengl
 	systemd? ( >=sys-apps/systemd-183 )
-	elogind? ( sys-auth/elogind[policykit] )
+	!systemd? ( sys-auth/elogind[policykit] )
 "
 
 RDEPEND="${COMMON_DEPEND}
