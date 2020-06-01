@@ -1,27 +1,20 @@
 # Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
-GNOME2_LA_PUNT="yes"
+EAPI=7
 PYTHON_COMPAT=( python3_{6,7} )
 PYTHON_REQ_USE="xml"
 
-inherit autotools eutils flag-o-matic gnome2 multilib pax-utils python-single-r1
+inherit autotools eutils flag-o-matic gnome2-utils multilib pax-utils python-single-r1 xdg
 
 DESCRIPTION="A fork of GNOME Shell with layout similar to GNOME 2"
 HOMEPAGE="https://projects.linuxmint.com/cinnamon/"
-
-MY_PV="${PV/_p/-UP}"
-MY_P="${PN}-${MY_PV}"
-
-SRC_URI="https://github.com/linuxmint/cinnamon/archive/${MY_PV}.tar.gz -> ${MY_P}.tar.gz"
+SRC_URI="https://github.com/linuxmint/cinnamon/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2+"
 SLOT="0"
-
 IUSE="gtk-doc +nls +networkmanager"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
-
 KEYWORDS="~amd64 ~x86"
 
 COMMON_DEPEND="${PYTHON_DEPS}
@@ -111,17 +104,21 @@ DEPEND="${COMMON_DEPEND}
 	virtual/pkgconfig
 	gtk-doc? ( dev-util/gtk-doc )
 "
-# libmozjs.so is picked up from /usr/lib while compiling, so block at build-time
-# https://bugs.gentoo.org/show_bug.cgi?id=360413
 
-src_prepare() {
+PATCHES=(
 	# Fix backgrounds path as cinnamon doesn't provide them
 	# https://github.com/linuxmint/Cinnamon/issues/3575
-	eapply "${FILESDIR}"/${PN}-3.8.0-gnome-background-compatibility.patch
+	"${FILESDIR}"/${PN}-3.8.0-gnome-background-compatibility.patch
 
 	# Use wheel group instead of sudo (from Fedora/Arch)
 	# https://github.com/linuxmint/Cinnamon/issues/3576
-	eapply "${FILESDIR}"/${PN}-3.6.6-wheel-sudo.patch
+	"${FILESDIR}"/${PN}-3.6.6-wheel-sudo.patch
+)
+
+src_prepare() {
+	xdg_src_prepare
+	eautoreconf
+	gnome2_disable_deprecation_warning
 
 	# Add polkit agent to required components (from Fedora/Arch), bug #523958
 	# https://github.com/linuxmint/Cinnamon/issues/3579
@@ -133,13 +130,13 @@ src_prepare() {
 	for p in $(grep -rl '#!.*python3'); do
 		python_fix_shebang "${p}"
 	done
-
-	eautoreconf
-	gnome2_src_prepare
 }
 
 src_configure() {
-	gnome2_src_configure \
+	econf \
+		--disable-maintainer-mode \
+		--disable-schemas-compile \
+		--enable-compile-warnings=minimum \
 		--libdir="${EPREFIX}/usr/$(get_libdir)" \
 		--with-ca-certificates="${EPREFIX}/etc/ssl/certs/ca-certificates.crt" \
 		$(use_enable gtk-doc) \
@@ -148,14 +145,16 @@ src_configure() {
 }
 
 src_install() {
-	gnome2_src_install
-	python_optimize "${ED}"usr/share/cinnamon/
+	default
+	find "${D}" -name '*.la' -delete || die
+
+	python_optimize "${ED}"/usr/share/cinnamon/
 
 	# Required for gnome-shell on hardened/PaX, bug #398941
-	pax-mark mr "${ED}usr/bin/cinnamon"
+	pax-mark mr "${ED}"/usr/bin/cinnamon
 
 	# Doesn't exist on Gentoo, causing this to be a dead symlink
-	rm -f "${ED}etc/xdg/menus/cinnamon-applications-merged" || die
+	rm -f "${ED}/etc/xdg/menus/cinnamon-applications-merged" || die
 
 	# Ensure authentication-agent is started, bug #523958
 	# https://github.com/linuxmint/Cinnamon/issues/3579
@@ -164,7 +163,8 @@ src_install() {
 }
 
 pkg_postinst() {
-	gnome2_pkg_postinst
+	xdg_pkg_postinst
+	gnome2_schemas_update
 
 	if ! has_version 'media-libs/gst-plugins-good:1.0' || \
 	   ! has_version 'media-plugins/gst-plugins-vpx:1.0'; then
@@ -173,4 +173,9 @@ pkg_postinst() {
 		ewarn "and media-plugins/gst-plugins-vpx:1.0, or use dconf-editor to change"
 		ewarn "org.cinnamon.recorder/pipeline to what you want to use."
 	fi
+}
+
+pkg_postrm() {
+	xdg_pkg_postinst
+	gnome2_schemas_update
 }

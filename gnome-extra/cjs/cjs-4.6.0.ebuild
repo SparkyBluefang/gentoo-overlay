@@ -1,8 +1,8 @@
 # Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
-inherit autotools gnome2 pax-utils virtualx
+EAPI=7
+inherit autotools gnome2-utils pax-utils virtualx xdg-utils
 
 DESCRIPTION="Linux Mint's fork of gjs for Cinnamon"
 HOMEPAGE="https://projects.linuxmint.com/cinnamon/"
@@ -12,6 +12,7 @@ LICENSE="MIT || ( MPL-1.1 LGPL-2+ GPL-2+ )"
 SLOT="0"
 IUSE="+cairo examples gtk test"
 KEYWORDS="~amd64 ~x86"
+RESTRICT="test"
 
 RDEPEND="
 	dev-lang/spidermonkey:52
@@ -23,18 +24,19 @@ RDEPEND="
 	gtk? ( x11-libs/gtk+:3 )
 "
 DEPEND="${RDEPEND}
+	sys-devel/autoconf-archive
+	test? ( sys-apps/dbus )
+"
+BDEPEND="
 	sys-devel/gettext
 	virtual/pkgconfig
-	test? ( sys-apps/dbus )
-	sys-devel/autoconf-archive
 "
-RDEPEND="${RDEPEND}"
-
-RESTRICT="test"
 
 src_prepare() {
+	xdg_environment_reset
+	default
 	eautoreconf
-	gnome2_src_prepare
+	gnome2_disable_deprecation_warning
 
 	sed -ie "s/'Gjs'/'Cjs'/g" \
 		"${S}"/installed-tests/js/testExceptions.js \
@@ -44,7 +46,9 @@ src_prepare() {
 src_configure() {
 	# FIXME: add systemtap/dtrace support, like in glib:2
 	# FIXME: --enable-systemtap installs files in ${D}/${D} for some reason
-	gnome2_src_configure \
+	econf \
+		--disable-maintainer-mode \
+		--enable-compile-warnings=minimum \
 		--disable-systemtap \
 		--disable-dtrace \
 		$(use_with cairo) \
@@ -57,7 +61,8 @@ src_test() {
 
 src_install() {
 	# installation sometimes fails in parallel
-	gnome2_src_install -j1
+	default -j1
+	find "${D}" -name '*.la' -delete || die
 
 	if use examples; then
 		docinto examples

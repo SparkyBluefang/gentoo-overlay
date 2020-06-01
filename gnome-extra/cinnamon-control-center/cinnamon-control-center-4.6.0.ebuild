@@ -1,10 +1,8 @@
 # Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
-GNOME2_LA_PUNT="yes" # gmodule is used, which uses dlopen
-
-inherit autotools eutils gnome2
+EAPI=7
+inherit autotools eutils gnome2-utils xdg
 
 DESCRIPTION="Cinnamons's main interface to configure various aspects of the desktop"
 HOMEPAGE="https://projects.linuxmint.com/cinnamon/"
@@ -54,23 +52,28 @@ RDEPEND="${COMMON_DEPEND}
 	colord? ( >=gnome-extra/gnome-color-manager-3 )
 	input_devices_wacom? ( gnome-extra/cinnamon-settings-daemon[input_devices_wacom] )
 "
-
 DEPEND="${COMMON_DEPEND}
 	app-text/iso-codes
-	dev-util/glib-utils
-	>=dev-util/intltool-0.40.1
 	sys-devel/autoconf-archive
-	>=sys-devel/gettext-0.17
-	virtual/pkgconfig
 	x11-base/xorg-proto
 "
+BDEPEND="
+	dev-util/glib-utils
+	>=dev-util/intltool-0.40.1
+	>=sys-devel/gettext-0.17
+	virtual/pkgconfig
+"
+
 src_prepare() {
+	xdg_src_prepare
 	eautoreconf
-	gnome2_src_prepare
+	gnome2_disable_deprecation_warning
 }
 
 src_configure() {
-	gnome2_src_configure \
+	econf \
+		--disable-maintainer-mode \
+		--enable-compile-warnings=minimum \
 		--disable-static \
 		--disable-onlineaccounts \
 		$(use_enable colord color) \
@@ -78,4 +81,9 @@ src_configure() {
 		$(use_enable input_devices_wacom wacom) \
 		$(use_enable networkmanager) \
 		$(use_enable modemmanager)
+}
+
+src_install() {
+	default
+	find "${D}" -name '*.la' -delete || die
 }
