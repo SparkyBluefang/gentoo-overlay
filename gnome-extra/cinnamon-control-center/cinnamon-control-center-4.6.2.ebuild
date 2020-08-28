@@ -18,7 +18,6 @@ KEYWORDS="~amd64 ~x86"
 QA_CONFIGURE_OPTIONS=".*"
 
 COMMON_DEPEND="
-	dev-libs/dbus-glib
 	>=dev-libs/glib-2.31:2
 	dev-libs/libxml2:2
 	>=gnome-base/libgnomekbd-2.91.91:0=
