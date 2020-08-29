@@ -8,10 +8,11 @@ VALA_USE_DEPEND="vapigen"
 inherit gnome2-utils vala meson python-r1 xdg-utils
 
 DESCRIPTION="Cross-desktop libraries and common resources"
-HOMEPAGE="https://github.com/linuxmint/xapps/"
+HOMEPAGE="https://github.com/linuxmint/xapp/"
 LICENSE="GPL-3"
 
-SRC_URI="https://github.com/linuxmint/xapps/archive/${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/linuxmint/xapp/archive/${PV}.tar.gz -> ${P}.tar.gz"
+S="${WORKDIR}/xapp-${PV}"
 KEYWORDS="~amd64 ~x86"
 
 SLOT="0"
