@@ -55,6 +55,7 @@ BDEPEND="
 
 PATCHES=(
 	"${FILESDIR}"/${PN}-4.6.0-python-build.patch
+	"${FILESDIR}"/${PN}-4.6.0-xinerama.patch
 )
 
 src_prepare() {
