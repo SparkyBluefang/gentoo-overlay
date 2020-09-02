@@ -1,5 +1,5 @@
 diff --git a/libcscreensaver/meson.build b/libcscreensaver/meson.build
-index 1800c46..c118add 100644
+index 1800c46..c2c3757 100644
 --- a/libcscreensaver/meson.build
 +++ b/libcscreensaver/meson.build
 @@ -145,13 +145,18 @@ gir_sources = [
@@ -7,7 +7,7 @@ index 1800c46..c118add 100644
  ]
  
 +libcscreensaver_deps = [gobject, gtk, gdk, x11, xrandr, xext, glib, gio, gthread, pam, m]
-+if xinerama
++if use_xinerama
 +  libcscreensaver_deps += xinerama
 +endif
 +
@@ -22,3 +22,17 @@ index 1800c46..c118add 100644
    install: true
  )
  
+diff --git a/meson.build b/meson.build
+index b15c3fb..2f9a9a5 100644
+--- a/meson.build
++++ b/meson.build
+@@ -61,7 +61,8 @@ foreach sym : [
+   endif
+ endforeach
+ 
+-if get_option('xinerama')
++use_xinerama = get_option('xinerama')
++if use_xinerama
+   if host_machine.system() == 'solaris'
+     xinerama = cc.find_library('Xext')
+     xinerama_h = cc.has_header('X11/extensions/xinerama.h')
