@@ -46,6 +46,12 @@ BDEPEND="
 	sys-devel/gettext
 "
 
+PATCHES=(
+	# Use proper GTK modules env variable
+	# https://github.com/linuxmint/xapp/pull/128
+	"${FILESDIR}"/fix-gtk-module-env.patch
+)
+
 src_prepare() {
 	xdg_environment_reset
 	vala_src_prepare

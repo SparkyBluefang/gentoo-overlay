@@ -31,7 +31,7 @@ COMMON_DEPEND="
 	>=x11-libs/libnotify-0.7:=
 	x11-libs/libX11
 	>=x11-libs/pango-1.40.0
-	>=x11-libs/xapps-2.0.0
+	>=x11-libs/xapps-2.0.5
 
 	exif? ( >=media-libs/libexif-0.6.20:= )
 	selinux? ( sys-libs/libselinux )

@@ -1,0 +1,34 @@
+From e846e76a392d44d211b7007691358f173f1b44a3 Mon Sep 17 00:00:00 2001
+From: Michael Webster <miketwebster@gmail.com>
+Date: Sat, 2 Jan 2021 21:19:15 -0500
+Subject: [PATCH] 80xapp-gtk3-module.sh: Use GTK3_MODULES instead of
+ GTK_MODULES.
+
+Currently gtk2 (and qt, when using the 'gtk2' theme style) programs
+are trying to load the xapp module even though they're not supported.
+This is harmless but can cause alarm.
+
+This will prevent gtk2 from seeing this module.
+---
+ data/80xapp-gtk3-module.sh | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/data/80xapp-gtk3-module.sh b/data/80xapp-gtk3-module.sh
+index 4b2ec2a..180aa54 100644
+--- a/data/80xapp-gtk3-module.sh
++++ b/data/80xapp-gtk3-module.sh
+@@ -1,10 +1,10 @@
+ #!/bin/bash
+ # This file is sourced by xinit(1) or a display manager's Xsession, not executed.
+ 
+-if [ -z "$GTK_MODULES" ] ; then
+-    GTK_MODULES="xapp-gtk3-module"
++if [ -z "$GTK3_MODULES" ] ; then
++    GTK3_MODULES="xapp-gtk3-module"
+ else
+-    GTK_MODULES="$GTK_MODULES:xapp-gtk3-module"
++    GTK3_MODULES="$GTK3_MODULES:xapp-gtk3-module"
+ fi
+ 
+-export GTK_MODULES
++export GTK3_MODULES
