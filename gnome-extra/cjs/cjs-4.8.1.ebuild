@@ -1,4 +1,4 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -6,7 +6,10 @@ inherit meson pax-utils virtualx
 
 DESCRIPTION="Linux Mint's fork of gjs for Cinnamon"
 HOMEPAGE="https://projects.linuxmint.com/cinnamon/"
-SRC_URI="https://github.com/linuxmint/cjs/archive/${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="
+	https://github.com/linuxmint/cjs/archive/${PV}.tar.gz -> ${P}.tar.gz
+	https://github.com/linuxmint/cjs/commit/1210c910935e4e3ab5335725a34adb8f661a8d95.patch -> ${P}-rebase-on-1.66.1.patch
+"
 
 LICENSE="MIT || ( MPL-1.1 LGPL-2+ GPL-2+ )"
 SLOT="0"
@@ -37,7 +40,7 @@ BDEPEND="
 PATCHES=(
 	# Rebase on gjs 1.66.1 to fix SIGABRT
 	# https://github.com/linuxmint/cjs/pull/90
-	"${FILESDIR}"/4.8.1-rebase-on-1.66.1.patch
+	"${DISTDIR}/${P}-rebase-on-1.66.1.patch"
 )
 
 src_configure() {

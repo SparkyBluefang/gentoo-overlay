@@ -1,4 +1,4 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -48,8 +48,8 @@ BDEPEND="
 
 PATCHES=(
 	# Use proper GTK modules env variable
-	# https://github.com/linuxmint/xapp/pull/128
-	"${FILESDIR}"/fix-gtk-module-env.patch
+	# https://github.com/linuxmint/xapp/commit/e846e76a392d44d211b7007691358f173f1b44a3
+	"${FILESDIR}/${PN}-2.0.5-fix-gtk-module-env.patch"
 )
 
 src_prepare() {

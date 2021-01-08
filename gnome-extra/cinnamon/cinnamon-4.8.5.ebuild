@@ -1,4 +1,4 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -107,7 +107,7 @@ PATCHES=(
 
 	# GStreamer only needed for recorder
 	# https://github.com/linuxmint/cinnamon/pull/9809
-	"${FILESDIR}"/4.8-build-fixes.patch
+	"${FILESDIR}"/${PN}-4.8-5-build-fixes.patch
 )
 
 src_prepare() {

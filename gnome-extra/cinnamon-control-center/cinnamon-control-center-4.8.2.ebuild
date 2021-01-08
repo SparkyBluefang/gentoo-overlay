@@ -1,4 +1,4 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -62,7 +62,7 @@ BDEPEND="
 PATCHES=(
 	# Fix build when modemmanager is disabled
 	# https://github.com/linuxmint/cinnamon-control-center/pull/257
-	"${FILESDIR}"/4.8-modemmanager-build-fix.patch
+	"${FILESDIR}/${PN}-4.8.2-build-fix.patch"
 )
 
 src_configure() {
