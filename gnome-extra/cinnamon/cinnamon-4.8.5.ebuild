@@ -107,7 +107,7 @@ PATCHES=(
 
 	# GStreamer only needed for recorder
 	# https://github.com/linuxmint/cinnamon/pull/9809
-	"${FILESDIR}"/${PN}-4.8-5-build-fixes.patch
+	"${FILESDIR}"/${PN}-4.8.5-build-fixes.patch
 )
 
 src_prepare() {
