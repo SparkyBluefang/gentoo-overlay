@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
-inherit meson xdg
+inherit meson xdg virtualx
 
 DESCRIPTION="Cinnamons's main interface to configure various aspects of the desktop"
 HOMEPAGE="https://projects.linuxmint.com/cinnamon/"
@@ -13,7 +13,7 @@ SLOT="0"
 IUSE="+colord input_devices_wacom +networkmanager +modemmanager systemd test"
 REQUIRED_USE="modemmanager? ( networkmanager )"
 KEYWORDS="~amd64 ~arm64 ~x86"
-#RESTRICT="test"
+RESTRICT="test"
 
 COMMON_DEPEND="
 	>=dev-libs/glib-2.44.0:2

@@ -3,7 +3,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_{6,7,8} )
+PYTHON_COMPAT=( python3_{6,7,8,9} )
 
 inherit meson gnome2-utils python-single-r1 virtualx xdg
 
@@ -40,7 +40,6 @@ COMMON_DEPEND="
 "
 RDEPEND="${COMMON_DEPEND}
 	$(python_gen_cond_dep '
-		dev-python/polib[${PYTHON_USEDEP}]
 		dev-python/pygobject:3[${PYTHON_USEDEP}]
 	')
 	x11-themes/adwaita-icon-theme
