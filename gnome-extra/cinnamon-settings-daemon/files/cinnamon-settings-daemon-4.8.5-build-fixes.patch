@@ -1,8 +1,8 @@
-From 8e9508e7d67b242f25548e1cd62f1bfab4539921 Mon Sep 17 00:00:00 2001
+From 281bc6b8e0085a91b7e59af45469c4da397646c2 Mon Sep 17 00:00:00 2001
 From: Sparky Bluefang <sparky@bluefang-logic.com>
 Date: Mon, 28 Dec 2020 17:05:21 -0500
-Subject: [PATCH] Meson build fixes. Add missing defines. Fix optional wacom
- build. Make build options behave consistently.
+Subject: [PATCH] build: Add missing defines. Fix optional wacom build. Make
+ build options behave consistently.
 
 ---
  meson.build                | 20 ++++++++++++--------
@@ -12,7 +12,7 @@ Subject: [PATCH] Meson build fixes. Add missing defines. Fix optional wacom
  4 files changed, 24 insertions(+), 13 deletions(-)
 
 diff --git a/meson.build b/meson.build
-index 63cd9c8..553a545 100644
+index 0e11d50..0d6c35a 100644
 --- a/meson.build
 +++ b/meson.build
 @@ -9,6 +9,7 @@ pkgname = meson.project_name().to_lower()
@@ -23,7 +23,7 @@ index 63cd9c8..553a545 100644
  
  # directories
  prefix = get_option('prefix')
-@@ -42,7 +43,7 @@ endif
+@@ -43,7 +44,7 @@ endif
  cinnamon_desktop_required = '>= 4.8.0'
  canberra = dependency('libcanberra-gtk3')
  cinnamon_desktop = dependency('cinnamon-desktop', version: cinnamon_desktop_required)
@@ -32,7 +32,7 @@ index 63cd9c8..553a545 100644
  cups = dependency('cups', version: '>= 1.4', required: get_option('use_cups'))
  cvc = dependency('cvc', version: cinnamon_desktop_required)
  fontconfig = dependency('fontconfig')
-@@ -55,13 +56,13 @@ gtk = dependency('gtk+-3.0', version: '>= 3.14.0')
+@@ -56,13 +57,13 @@ gtk = dependency('gtk+-3.0', version: '>= 3.14.0')
  gudev = dependency('gudev-1.0', required: get_option('use_gudev'))
  libnotify = dependency('libnotify', version: '>= 0.7.3')
  kbproto = dependency('kbproto')
@@ -48,7 +48,7 @@ index 63cd9c8..553a545 100644
  x11 = dependency('x11')
  xext = dependency('xext')
  xfixes = dependency('xfixes')
-@@ -79,13 +80,12 @@ librsvg = dependency('librsvg-2.0', version: '>= 2.36.2', required: wacom.found(
+@@ -80,13 +81,12 @@ librsvg = dependency('librsvg-2.0', version: '>= 2.36.2', required: wacom.found(
  xorg_wacom = dependency('xorg-wacom', required: wacom.found())
  
  lcms = dependency('lcms2', version: '>= 2.2', required: false)
@@ -66,7 +66,7 @@ index 63cd9c8..553a545 100644
  using_logind = false
  if not get_option('use_logind').disabled()
      logind = dependency('libsystemd-logind', required: false)
-@@ -124,6 +124,10 @@ if gudev.found()
+@@ -125,6 +125,10 @@ if gudev.found()
      cargs += '-DHAVE_GUDEV'
  endif
  
@@ -78,10 +78,10 @@ index 63cd9c8..553a545 100644
      cargs += [
            '-Wno-deprecated-declarations',
 diff --git a/meson_options.txt b/meson_options.txt
-index 2fbe526..db8e970 100644
+index 0a6941b..e3c89f3 100644
 --- a/meson_options.txt
 +++ b/meson_options.txt
-@@ -35,17 +35,23 @@ option(
+@@ -35,20 +35,26 @@ option(
      description: 'Whether cups (and therefore the print notifications plugin) support should be enabled'
  )
  option(
@@ -108,18 +108,16 @@ index 2fbe526..db8e970 100644
  option(
      'enable_debug',
      type: 'boolean',
-@@ -57,4 +63,4 @@ option(
-     type: 'boolean',
-     value: true,
-     description: 'Add symbolic links to the plugin executables into the bin folder'
+     value: false,
+     description: 'Show additional build warnings'
 -)
 \ No newline at end of file
 +)
 diff --git a/plugins/meson.build b/plugins/meson.build
-index 0de6faf..11ba50c 100644
+index 0d11a52..069366d 100644
 --- a/plugins/meson.build
 +++ b/plugins/meson.build
-@@ -25,7 +25,7 @@ subdir('sound')
+@@ -24,7 +24,7 @@ subdir('sound')
  subdir('xrandr')
  subdir('xsettings')
  
@@ -129,7 +127,7 @@ index 0de6faf..11ba50c 100644
  endif
  
 diff --git a/plugins/xrandr/meson.build b/plugins/xrandr/meson.build
-index 6ad7ecc..4b223db 100644
+index db2bf73..3296f1a 100644
 --- a/plugins/xrandr/meson.build
 +++ b/plugins/xrandr/meson.build
 @@ -11,6 +11,7 @@ xrandr_deps = [

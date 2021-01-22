@@ -8,7 +8,7 @@ PYTHON_COMPAT=( python3_{6,7,8,9} )
 inherit meson gnome2-utils python-single-r1 virtualx xdg
 
 DESCRIPTION="A file manager for Cinnamon, forked from Nautilus"
-HOMEPAGE="https://projects.linuxmint.com/cinnamon/"
+HOMEPAGE="https://projects.linuxmint.com/cinnamon/ https://github.com/linuxmint/nemo"
 SRC_URI="https://github.com/linuxmint/nemo/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2+ LGPL-2+ FDL-1.1"
@@ -38,7 +38,8 @@ COMMON_DEPEND="
 	tracker? ( >=app-misc/tracker-2.0:= )
 	xmp? ( >=media-libs/exempi-2.2.0:= )
 "
-RDEPEND="${COMMON_DEPEND}
+RDEPEND="
+	${COMMON_DEPEND}
 	$(python_gen_cond_dep '
 		dev-python/pygobject:3[${PYTHON_USEDEP}]
 	')
@@ -46,8 +47,11 @@ RDEPEND="${COMMON_DEPEND}
 
 	nls? ( >=gnome-extra/cinnamon-translations-4.8 )
 "
-PDEPEND=">=gnome-base/gvfs-0.1.2"
-DEPEND="${COMMON_DEPEND}
+PDEPEND="
+	>=gnome-base/gvfs-0.1.2
+"
+DEPEND="
+	${COMMON_DEPEND}
 	x11-base/xorg-proto
 "
 BDEPEND="
@@ -58,6 +62,12 @@ BDEPEND="
 
 	doc? ( dev-util/gtk-doc )
 "
+
+PATCHES=(
+	# Fix performance regression when icon captions enabled.
+	# https://github.com/linuxmint/nemo/issues/2472
+	"${FILESDIR}/${PN}-4.6-captions-fix.patch"
+)
 
 src_prepare() {
 	xdg_environment_reset

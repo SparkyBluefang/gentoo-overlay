@@ -6,7 +6,7 @@ EAPI=7
 inherit autotools eutils gnome2-utils xdg-utils virtualx
 
 DESCRIPTION="Compositing window manager forked from Mutter for use with Cinnamon"
-HOMEPAGE="https://projects.linuxmint.com/cinnamon/"
+HOMEPAGE="https://projects.linuxmint.com/cinnamon/ https://github.com/linuxmint/muffin"
 SRC_URI="https://github.com/linuxmint/muffin/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2+"
@@ -45,7 +45,8 @@ RDEPEND="
 	introspection? ( >=dev-libs/gobject-introspection-0.9.12:= )
 	xinerama? ( x11-libs/libXinerama )
 "
-DEPEND="${RDEPEND}
+DEPEND="
+	${RDEPEND}
 	x11-base/xorg-proto
 
 	test? ( app-text/docbook-xml-dtd:4.5 )

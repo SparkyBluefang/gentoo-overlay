@@ -32,7 +32,8 @@ COMMON_DEPEND="
 
 	xinerama? ( x11-libs/libXinerama )
 "
-RDEPEND="${COMMON_DEPEND}
+RDEPEND="
+	${COMMON_DEPEND}
 	sys-apps/accountsservice[introspection]
 	$(python_gen_cond_dep '
 		dev-python/psutil[${PYTHON_USEDEP}]
@@ -44,7 +45,8 @@ RDEPEND="${COMMON_DEPEND}
 	systemd? ( >=sys-apps/systemd-31 )
 	!systemd? ( sys-auth/elogind )
 "
-DEPEND="${COMMON_DEPEND}
+DEPEND="
+	${COMMON_DEPEND}
 	x11-base/xorg-proto
 "
 BDEPEND="

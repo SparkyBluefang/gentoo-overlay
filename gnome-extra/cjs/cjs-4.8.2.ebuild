@@ -5,11 +5,8 @@ EAPI=7
 inherit meson pax-utils virtualx
 
 DESCRIPTION="Linux Mint's fork of gjs for Cinnamon"
-HOMEPAGE="https://projects.linuxmint.com/cinnamon/"
-SRC_URI="
-	https://github.com/linuxmint/cjs/archive/${PV}.tar.gz -> ${P}.tar.gz
-	https://github.com/linuxmint/cjs/commit/1210c910935e4e3ab5335725a34adb8f661a8d95.patch -> ${P}-rebase-on-1.66.1.patch
-"
+HOMEPAGE="https://projects.linuxmint.com/cinnamon/ https://github.com/linuxmint/cjs"
+SRC_URI="https://github.com/linuxmint/cjs/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="MIT || ( MPL-1.1 LGPL-2+ GPL-2+ )"
 SLOT="0"
@@ -25,7 +22,8 @@ RDEPEND="
 	cairo? ( x11-libs/cairo[glib,X] )
 	readline? ( sys-libs/readline:0= )
 "
-DEPEND="${RDEPEND}
+DEPEND="
+	${RDEPEND}
 	sysprof? ( >=dev-util/sysprof-capture-3.38.1:4 )
 	test? (
 		sys-apps/dbus
@@ -36,12 +34,6 @@ DEPEND="${RDEPEND}
 BDEPEND="
 	virtual/pkgconfig
 "
-
-PATCHES=(
-	# Rebase on gjs 1.66.1 to fix SIGABRT
-	# https://github.com/linuxmint/cjs/pull/90
-	"${DISTDIR}/${P}-rebase-on-1.66.1.patch"
-)
 
 src_configure() {
 	local emesonargs=(

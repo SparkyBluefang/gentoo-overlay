@@ -5,7 +5,7 @@ EAPI=7
 inherit meson xdg virtualx
 
 DESCRIPTION="Cinnamons's main interface to configure various aspects of the desktop"
-HOMEPAGE="https://projects.linuxmint.com/cinnamon/"
+HOMEPAGE="https://projects.linuxmint.com/cinnamon/ https://github.com/linuxmint/cinnamon-control-center"
 SRC_URI="https://github.com/linuxmint/cinnamon-control-center/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2+"
@@ -40,7 +40,8 @@ COMMON_DEPEND="
 		modemmanager? ( >=net-misc/modemmanager-0.7 )
 	)
 "
-RDEPEND="${COMMON_DEPEND}
+RDEPEND="
+	${COMMON_DEPEND}
 	x11-themes/adwaita-icon-theme
 
 	colord? ( >=gnome-extra/gnome-color-manager-3 )
@@ -48,7 +49,8 @@ RDEPEND="${COMMON_DEPEND}
 	systemd? ( >=sys-apps/systemd-31 )
 	!systemd? ( app-admin/openrc-settingsd )
 "
-DEPEND="${COMMON_DEPEND}
+DEPEND="
+	${COMMON_DEPEND}
 	app-text/iso-codes
 	x11-base/xorg-proto
 "

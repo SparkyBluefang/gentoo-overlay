@@ -5,7 +5,7 @@ EAPI=7
 inherit meson gnome2-utils xdg
 
 DESCRIPTION="Cinnamon's settings daemon"
-HOMEPAGE="https://projects.linuxmint.com/cinnamon/"
+HOMEPAGE="https://projects.linuxmint.com/cinnamon/ https://github.com/linuxmint/cinnamon-settings-daemon"
 SRC_URI="https://github.com/linuxmint/cinnamon-settings-daemon/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2+"
@@ -49,7 +49,8 @@ RDEPEND="
 	systemd? ( sys-apps/systemd:0= )
 	!systemd? ( sys-auth/elogind:0= )
 "
-DEPEND="${RDEPEND}
+DEPEND="
+	${RDEPEND}
 	dev-libs/libxml2:2
 	x11-base/xorg-proto
 "
@@ -63,7 +64,7 @@ BDEPEND="
 PATCHES=(
 	# Miscellaneous meson configuration/compilation fixes
 	# https://github.com/linuxmint/cinnamon-settings-daemon/pull/314
-	"${FILESDIR}/${PN}-4.8.3-build-fixes.patch"
+	"${FILESDIR}/${PN}-4.8.5-build-fixes.patch"
 )
 
 src_configure() {
@@ -76,7 +77,6 @@ src_configure() {
 		$(meson_feature cups use_cups)
 		$(meson_feature smartcard use_smartcard)
 		$(meson_feature input_devices_wacom use_wacom)
-		-Dinstall_binfiles=false
 	)
 	meson_src_configure
 }

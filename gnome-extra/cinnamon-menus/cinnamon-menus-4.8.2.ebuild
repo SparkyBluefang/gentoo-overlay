@@ -6,7 +6,7 @@ EAPI=7
 inherit meson xdg
 
 DESCRIPTION="Cinnamon's library for the Desktop Menu fd.o specification"
-HOMEPAGE="https://projects.linuxmint.com/cinnamon/"
+HOMEPAGE="https://projects.linuxmint.com/cinnamon/ https://github.com/linuxmint/cinnamon-menus"
 SRC_URI="https://github.com/linuxmint/cinnamon-menus/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2+ LGPL-2+"
@@ -18,7 +18,8 @@ RDEPEND="
 	>=dev-libs/glib-2.29.15:2
 	>=dev-libs/gobject-introspection-0.9.12:=
 "
-DEPEND="${RDEPEND}
+DEPEND="
+	${RDEPEND}
 	dev-libs/gobject-introspection-common
 "
 BDEPEND="

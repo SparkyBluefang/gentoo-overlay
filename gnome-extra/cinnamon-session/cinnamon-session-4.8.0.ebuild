@@ -6,7 +6,7 @@ EAPI=7
 inherit meson gnome2-utils xdg
 
 DESCRIPTION="Cinnamon session manager"
-HOMEPAGE="https://projects.linuxmint.com/cinnamon/"
+HOMEPAGE="https://projects.linuxmint.com/cinnamon/ https://github.com/linuxmint/cinnamon-session"
 SRC_URI="https://github.com/linuxmint/cinnamon-session/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2+ FDL-1.1+ LGPL-2+"
@@ -35,11 +35,13 @@ COMMON_DEPEND="
 	systemd? ( >=sys-apps/systemd-183 )
 	!systemd? ( sys-auth/elogind[policykit] )
 "
-
-RDEPEND="${COMMON_DEPEND}
+RDEPEND="
+	${COMMON_DEPEND}
 	>=gnome-extra/cinnamon-desktop-4.8
 "
-DEPEND="${COMMON_DEPEND}"
+DEPEND="
+	${COMMON_DEPEND}
+"
 BDEPEND="
 	>=dev-util/intltool-0.40.6
 	virtual/pkgconfig

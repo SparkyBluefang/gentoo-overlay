@@ -8,7 +8,7 @@ PYTHON_REQ_USE="xml"
 inherit meson gnome2-utils pax-utils python-single-r1 xdg
 
 DESCRIPTION="A fork of GNOME Shell with layout similar to GNOME 2"
-HOMEPAGE="https://projects.linuxmint.com/cinnamon/"
+HOMEPAGE="https://projects.linuxmint.com/cinnamon/ https://github.com/linuxmint/cinnamon"
 SRC_URI="https://github.com/linuxmint/cinnamon/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2+"
@@ -17,7 +17,8 @@ IUSE="+gstreamer gtk-doc +nls +networkmanager"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 KEYWORDS="~amd64 ~arm64 ~x86"
 
-COMMON_DEPEND="${PYTHON_DEPS}
+COMMON_DEPEND="
+	${PYTHON_DEPS}
 	app-accessibility/at-spi2-atk:2
 	>=dev-libs/glib-2.52.0:2[dbus]
 	>=dev-libs/gobject-introspection-1.29.15:=
@@ -49,7 +50,8 @@ COMMON_DEPEND="${PYTHON_DEPS}
 # caribou used by onscreen keyboard
 # libtimezonemap used by datetime settings
 # iso-flag-png (unpackaged) used by keyboard layout settings
-RDEPEND="${COMMON_DEPEND}
+RDEPEND="
+	${COMMON_DEPEND}
 	>=app-accessibility/caribou-0.3
 	dev-libs/keybinder:3[introspection]
 	dev-libs/libtimezonemap
@@ -88,7 +90,8 @@ RDEPEND="${COMMON_DEPEND}
 		>=gnome-extra/cinnamon-translations-4.8
 	)
 "
-DEPEND="${COMMON_DEPEND}
+DEPEND="
+	${COMMON_DEPEND}
 	>=dev-util/intltool-0.40
 	>=sys-devel/gettext-0.17
 	virtual/pkgconfig
@@ -119,7 +122,7 @@ src_prepare() {
 
 	# shebang fixing craziness
 	local p
-	for p in $(grep -rl '#!.*python3'); do
+	for p in $(grep -rl '#!.*python3' || die); do
 		python_fix_shebang "${p}"
 	done
 }
@@ -142,7 +145,7 @@ src_install() {
 	pax-mark mr "${ED}"/usr/bin/cinnamon
 
 	# Doesn't exist on Gentoo, causing this to be a dead symlink
-	rm -f "${ED}/etc/xdg/menus/cinnamon-applications-merged" || die
+	rm "${ED}/etc/xdg/menus/cinnamon-applications-merged" || die
 
 	# Ensure authentication-agent is started, bug #523958
 	# https://github.com/linuxmint/Cinnamon/issues/3579

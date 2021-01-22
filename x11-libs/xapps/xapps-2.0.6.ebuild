@@ -31,31 +31,28 @@ RDEPEND="
 	>=x11-libs/gtk+-3.16.0:3[introspection?]
 	x11-libs/libxkbfile
 "
-DEPEND="${RDEPEND}
-	$(vala_depend)
-	sys-devel/gettext
-
-	gtk-doc? ( dev-util/gtk-doc )
+DEPEND="
+	${RDEPEND}
 "
 BDEPEND="
 	${PYTHON_DEPS}
+	$(vala_depend)
 	dev-python/pygobject:3[${PYTHON_USEDEP}]
 	dev-util/gdbus-codegen
 	dev-util/glib-utils
 	>=dev-util/intltool-0.40.6
 	sys-devel/gettext
-"
 
-PATCHES=(
-	# Use proper GTK modules env variable
-	# https://github.com/linuxmint/xapp/commit/e846e76a392d44d211b7007691358f173f1b44a3
-	"${FILESDIR}/${PN}-2.0.5-fix-gtk-module-env.patch"
-)
+	gtk-doc? ( dev-util/gtk-doc )
+"
 
 src_prepare() {
 	xdg_environment_reset
 	vala_src_prepare
 	default
+
+	# don't install distro specific tools
+	sed -i "/subdir('scripts')/d" meson.build || die
 }
 
 src_configure() {
@@ -68,22 +65,18 @@ src_configure() {
 
 src_install() {
 	meson_src_install
-	rm -rf "${ED}/usr/bin" || die
-
-	# package provides .pc files
-	find "${D}" -name '*.la' -delete || die
 
 	# copy pygobject files to each active python target
 	# work-around for "py-overrides-dir" only supporting a single target
 	install_pygobject_override() {
-		PYTHON_GI_OVERRIDESDIR=$("${PYTHON}" -c 'import gi;print(gi._overridesdir)') || die
+		PYTHON_GI_OVERRIDESDIR=$("${EPYTHON}" -c 'import gi;print(gi._overridesdir)' || die)
 		einfo "gobject overrides directory: $PYTHON_GI_OVERRIDESDIR"
-		mkdir -p "${ED}/$PYTHON_GI_OVERRIDESDIR/"
+		mkdir -p "${ED}/$PYTHON_GI_OVERRIDESDIR/" || die
 		cp -r "${D}"/pygobject/* "${ED}/$PYTHON_GI_OVERRIDESDIR/" || die
 		python_optimize "${ED}/$PYTHON_GI_OVERRIDESDIR/"
 	}
 	python_foreach_impl install_pygobject_override
-	rm -rf "${D}/pygobject" || die
+	rm -r "${D}/pygobject" || die
 }
 
 pkg_postinst() {

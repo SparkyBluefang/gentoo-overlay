@@ -16,8 +16,12 @@ SLOT="0"
 KEYWORDS="~amd64 ~arm64 ~x86"
 IUSE=""
 
-DEPEND="x11-libs/xapps[introspection]"
-RDEPEND="${DEPEND}
-	dev-python/psutil[${PYTHON_USEDEP}]"
+DEPEND="
+	x11-libs/xapps[introspection]
+"
+RDEPEND="
+	${DEPEND}
+	dev-python/psutil[${PYTHON_USEDEP}]
+"
 
 S="${WORKDIR}/python3-xapp-${PV}"

@@ -8,14 +8,14 @@ PYTHON_COMPAT=( python3_{6,7,8,9} )
 inherit meson gnome2-utils python-any-r1 xdg
 
 DESCRIPTION="A collection of libraries and utilites used by Cinnamon"
-HOMEPAGE="https://projects.linuxmint.com/cinnamon/"
+HOMEPAGE="https://projects.linuxmint.com/cinnamon/ https://github.com/linuxmint/cinnamon-desktop"
 SRC_URI="https://github.com/linuxmint/cinnamon-desktop/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2+ FDL-1.1+ LGPL-2+"
 SLOT="0/4" # subslot = libcinnamon-desktop soname version
 KEYWORDS="~amd64 ~arm64 ~x86"
 
-COMMON_DEPEND="
+RDEPEND="
 	>=dev-libs/glib-2.37.3:2[dbus]
 	>=dev-libs/gobject-introspection-0.10.2:=
 	>=gnome-base/gsettings-desktop-schemas-3.5.91
@@ -30,11 +30,12 @@ COMMON_DEPEND="
 	>=x11-libs/libXrandr-1.3
 	x11-misc/xkeyboard-config
 "
-RDEPEND="${COMMON_DEPEND}"
-DEPEND="${COMMON_DEPEND}
+DEPEND="
+	${RDEPEND}
 	x11-base/xorg-proto
 "
-BDEPEND="${PYTHON_DEPS}
+BDEPEND="
+	${PYTHON_DEPS}
 	dev-util/glib-utils
 	>=dev-util/intltool-0.40.6
 	sys-devel/gettext
