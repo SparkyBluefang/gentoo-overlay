@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit autotools eutils gnome2-utils xdg-utils virtualx
+inherit autotools gnome2-utils xdg-utils virtualx
 
 DESCRIPTION="Compositing window manager forked from Mutter for use with Cinnamon"
 HOMEPAGE="https://projects.linuxmint.com/cinnamon/ https://github.com/linuxmint/muffin"
@@ -62,7 +62,6 @@ BDEPEND="
 "
 
 src_prepare() {
-	xdg_environment_reset
 	default
 	eautoreconf
 	gnome2_disable_deprecation_warning

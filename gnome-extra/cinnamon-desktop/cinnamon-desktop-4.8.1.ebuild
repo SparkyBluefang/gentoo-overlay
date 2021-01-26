@@ -42,6 +42,11 @@ BDEPEND="
 	virtual/pkgconfig
 "
 
+src_prepare() {
+	default
+	python_fix_shebang install-scripts
+}
+
 pkg_postinst() {
 	gnome2_schemas_update
 }

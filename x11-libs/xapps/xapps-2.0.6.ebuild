@@ -47,12 +47,14 @@ BDEPEND="
 "
 
 src_prepare() {
-	xdg_environment_reset
 	vala_src_prepare
 	default
 
 	# don't install distro specific tools
 	sed -i "/subdir('scripts')/d" meson.build || die
+
+	# Fix meson helpers
+	python_fix_shebang meson-scripts
 }
 
 src_configure() {
@@ -70,10 +72,10 @@ src_install() {
 	# work-around for "py-overrides-dir" only supporting a single target
 	install_pygobject_override() {
 		PYTHON_GI_OVERRIDESDIR=$("${EPYTHON}" -c 'import gi;print(gi._overridesdir)' || die)
-		einfo "gobject overrides directory: $PYTHON_GI_OVERRIDESDIR"
-		mkdir -p "${ED}/$PYTHON_GI_OVERRIDESDIR/" || die
-		cp -r "${D}"/pygobject/* "${ED}/$PYTHON_GI_OVERRIDESDIR/" || die
-		python_optimize "${ED}/$PYTHON_GI_OVERRIDESDIR/"
+		einfo "gobject overrides directory: ${PYTHON_GI_OVERRIDESDIR}"
+		mkdir -p "${ED}/${PYTHON_GI_OVERRIDESDIR}/" || die
+		cp -r "${D}"/pygobject/* "${ED}/${PYTHON_GI_OVERRIDESDIR}/" || die
+		python_optimize "${ED}/${PYTHON_GI_OVERRIDESDIR}/"
 	}
 	python_foreach_impl install_pygobject_override
 	rm -r "${D}/pygobject" || die

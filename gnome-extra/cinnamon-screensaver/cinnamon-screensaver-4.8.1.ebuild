@@ -8,7 +8,7 @@ PYTHON_COMPAT=( python3_{6,7,8,9} )
 inherit meson python-single-r1 xdg
 
 DESCRIPTION="Screensaver for Cinnamon"
-HOMEPAGE="https://projects.linuxmint.com/cinnamon/"
+HOMEPAGE="https://projects.linuxmint.com/cinnamon/ https://github.com/linuxmint/cinnamon-screensaver"
 SRC_URI="https://github.com/linuxmint/cinnamon-screensaver/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2+"
@@ -34,6 +34,7 @@ COMMON_DEPEND="
 "
 RDEPEND="
 	${COMMON_DEPEND}
+	>=app-accessibility/caribou-0.3
 	sys-apps/accountsservice[introspection]
 	$(python_gen_cond_dep '
 		dev-python/psutil[${PYTHON_USEDEP}]
@@ -57,8 +58,8 @@ BDEPEND="
 "
 
 src_prepare() {
-	xdg_src_prepare
-	python_fix_shebang src
+	default
+	python_fix_shebang install-scripts src
 }
 
 src_configure() {
