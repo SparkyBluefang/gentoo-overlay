@@ -54,6 +54,7 @@ src_prepare() {
 	sed -i "/subdir('scripts')/d" meson.build || die
 
 	# Fix meson helpers
+	python_setup
 	python_fix_shebang meson-scripts
 }
 
