@@ -3,9 +3,9 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_{6,7,8,9} )
+PYTHON_COMPAT=( python3_{7,8,9} )
 
-inherit meson gnome2-utils python-any-r1 xdg
+inherit meson gnome2-utils python-any-r1
 
 DESCRIPTION="A collection of libraries and utilites used by Cinnamon"
 HOMEPAGE="https://projects.linuxmint.com/cinnamon/ https://github.com/linuxmint/cinnamon-desktop"

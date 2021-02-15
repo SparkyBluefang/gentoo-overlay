@@ -3,7 +3,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_{6,7,8,9} )
+PYTHON_COMPAT=( python3_{7..9} )
 PYTHON_REQ_USE="xml"
 
 inherit gnome.org gnome2-utils python-single-r1 vala
@@ -15,7 +15,7 @@ LICENSE="LGPL-2.1"
 SLOT="0"
 IUSE="gtk gtk2"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
-KEYWORDS="~amd64 ~arm64 ~x86"
+KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~ia64 ~ppc ~ppc64 ~sparc ~x86"
 
 COMMON_DEPEND="
 	${PYTHON_DEPS}

@@ -5,7 +5,7 @@ EAPI=7
 
 PYTHON_COMPAT=( python3_{6,7,8,9} )
 
-inherit meson gnome2-utils python-any-r1 xdg
+inherit meson gnome2-utils python-any-r1 xdg-utils
 
 DESCRIPTION="Cinnamon session manager"
 HOMEPAGE="https://projects.linuxmint.com/cinnamon/ https://github.com/linuxmint/cinnamon-session"
@@ -66,11 +66,11 @@ src_configure() {
 }
 
 pkg_postinst() {
-	xdg_pkg_postinst
+	xdg_icon_cache_update
 	gnome2_schemas_update
 }
 
 pkg_postrm() {
-	xdg_pkg_postrm
+	xdg_icon_cache_update
 	gnome2_schemas_update
 }
