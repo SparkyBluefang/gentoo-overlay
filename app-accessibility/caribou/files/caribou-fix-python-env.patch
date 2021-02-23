@@ -1,6 +1,5 @@
-diff -rupN caribou-0.4.21.orig/bin/antler-keyboard.in caribou-0.4.21/bin/antler-keyboard.in
---- a/bin/antler-keyboard.in	2016-07-20 01:13:11.000000000 -0400
-+++ b/bin/antler-keyboard.in	2021-01-24 23:54:14.466466751 -0500
+--- a/bin/antler-keyboard.in
++++ b/bin/antler-keyboard.in
 @@ -18,24 +18,4 @@
  # along with this program; if not, write to the Free Software Foundation,
  # Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
@@ -27,9 +26,8 @@ diff -rupN caribou-0.4.21.orig/bin/antler-keyboard.in caribou-0.4.21/bin/antler-
 -
 -@PYTHON@ -m caribou.antler.main "$@"
 +exec @PYTHON@ -m caribou.antler.main "$@"
-diff -rupN caribou-0.4.21.orig/bin/caribou-preferences.in caribou-0.4.21/bin/caribou-preferences.in
---- a/bin/caribou-preferences.in	2016-07-20 01:13:11.000000000 -0400
-+++ b/bin/caribou-preferences.in	2021-01-24 23:54:39.976665024 -0500
+--- a/bin/caribou-preferences.in
++++ b/bin/caribou-preferences.in
 @@ -18,26 +18,7 @@
  # along with this program; if not, write to the Free Software Foundation,
  # Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
