@@ -13,7 +13,7 @@ HOMEPAGE="https://wiki.gnome.org/Projects/Caribou"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-IUSE="gtk gtk2"
+IUSE=""
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~ia64 ~ppc ~ppc64 ~sparc ~x86"
 
@@ -27,16 +27,10 @@ COMMON_DEPEND="
 	dev-libs/libgee:0.8
 	dev-libs/libxml2
 	>=media-libs/clutter-1.5.11:1.0[introspection]
+	>=x11-libs/gtk+-3:3[introspection]
 	x11-libs/libX11
 	x11-libs/libxklavier
 	x11-libs/libXtst
-
-	gtk? (
-		>=x11-libs/gtk+-3:3[introspection]
-	)
-	gtk2? (
-		x11-libs/gtk+:2
-	)
 "
 # gsettings-desktop-schemas is needed for the 'toolkit-accessibility' key
 # pyatspi-2.1.90 needed to run caribou if pygobject:3 is installed
@@ -82,8 +76,8 @@ src_configure() {
 		--disable-schemas-compile \
 		--disable-docs \
 		--disable-static \
-		$(use_enable gtk2 gtk2-module) \
-		$(use_enable gtk gtk3-module)
+		--disable-gtk2-module \
+		--enable-gtk3-module
 }
 
 src_install() {

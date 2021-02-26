@@ -9,10 +9,6 @@
 		<email>proxy-maint@gentoo.org</email>
 		<name>Proxy Maintainers</name>
 	</maintainer>
-	<use>
-		<flag name="gtk2">Build gtk2 support module</flag>
-		<flag name="gtk">Build gtk3 support module</flag>
-	</use>
 	<longdescription lang="en">
 Caribou is a text entry and UI navigation application being developed as an
 alternative to the Gnome On-screen Keyboard. The overarching goal for Caribou
