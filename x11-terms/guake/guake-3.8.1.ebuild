@@ -70,8 +70,6 @@ python_install_all() {
 	emake DESTDIR="${D}" PREFIX="${EPREFIX}/usr" install-{locale,schemas}
 
 	dodoc NEWS.rst README.rst
-
-	mv "${D}"/{,"${EPREFIX}"/usr/share/}metainfo || die
 }
 
 pkg_postinst() {
