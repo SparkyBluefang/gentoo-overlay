@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI="7"
-PYTHON_COMPAT=( python3_{8,9,10} )
+PYTHON_COMPAT=( python3_{8,9,10,11} )
 
 SRC_URI=""
 DESCRIPTION="Various helpful system and user utilities"
@@ -25,7 +25,7 @@ REQUIRED_USE="firewall? ( ^^ ( iptables nftables ) ) ${PYTHON_REQUIRED_USE}"
 
 RDEPEND="
 	sys-apps/coreutils
-	virtual/awk
+	app-alternatives/awk
 	${PYTHON_DEPS}
 
 	cpufreq? (
@@ -88,4 +88,3 @@ src_install() {
 		dobin update-xorg
 	fi
 }
-
