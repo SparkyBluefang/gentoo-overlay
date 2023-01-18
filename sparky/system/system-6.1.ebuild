@@ -11,7 +11,7 @@ LICENSE="metapackage"
 
 SLOT="0"
 KEYWORDS="amd64 x86"
-IUSE="acpi dhclient dhcpcd exfat fat hidpi intel ntfs wifi"
+IUSE="acpi dhclient dhcpcd exfat fat hidpi intel ntfs"
 REQUIRED_USE="^^ ( dhclient dhcpcd )"
 
 S="${WORKDIR}"
@@ -27,6 +27,7 @@ RDEPEND="
 	media-sound/alsa-utils
 	net-dns/ddclient
 	net-dns/openresolv
+	net-misc/networkmanager
 	net-misc/ntp
 	sparky/unix-utils
 	sys-apps/hdparm
@@ -73,11 +74,6 @@ RDEPEND="
 
 	ntfs? (
 		sys-fs/ntfs3g
-	)
-
-	wifi? (
-		net-wireless/crda
-		net-wireless/wpa_supplicant
 	)
 "
 
