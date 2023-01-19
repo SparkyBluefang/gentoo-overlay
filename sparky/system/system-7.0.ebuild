@@ -11,14 +11,14 @@ LICENSE="metapackage"
 
 SLOT="0"
 KEYWORDS="amd64 x86"
-IUSE="acpi dhclient dhcpcd exfat fat hidpi intel ntfs"
-REQUIRED_USE="^^ ( dhclient dhcpcd )"
+IUSE="acpi dbus elogind exfat fat hidpi intel ntfs portage"
 
 S="${WORKDIR}"
 
 RDEPEND="
 	app-admin/mcelog
 	app-admin/metalog
+	app-editors/nano
 	app-editors/vim
 	app-eselect/eselect-repository
 	app-portage/gentoolkit
@@ -31,6 +31,7 @@ RDEPEND="
 	net-misc/ntp
 	sparky/unix-utils
 	sys-apps/hdparm
+	sys-apps/nvme-cli
 	sys-apps/pciutils
 	sys-apps/usbutils
 	sys-block/parted
@@ -46,12 +47,12 @@ RDEPEND="
 		sys-power/acpid
 	)
 
-	dhcpcd? (
-		net-misc/dhcpcd
+	dbus? (
+		sys-apps/dbus
 	)
 
-	dhclient? (
-		net-misc/dhcp[client]
+	elogind? (
+		sys-auth/elogind
 	)
 
 	exfat? (
@@ -75,5 +76,32 @@ RDEPEND="
 	ntfs? (
 		sys-fs/ntfs3g
 	)
-"
 
+	portage? (
+		app-portage/iwdevtools
+		dev-util/pkgcheck
+		dev-util/pkgdev
+	)
+"
+DEPEND="$RDEPEND"
+
+pkg_postinst() {
+	if use acpi; then
+		rc-update add acpid default
+	fi
+	if use dbus; then
+		rc-update add dbus default
+	fi
+	if use elogind; then
+		rc-update add elogind boot
+	fi
+	rc-update add firewall       boot
+	rc-update add consolefont    default
+	rc-update add cronie         default
+	rc-update add ddclient       default
+	rc-update add gpm            default
+	rc-update add mcelog         default
+	rc-update add metalog        default
+	rc-update add NetworkManager default
+	rc-update add ntpd           default
+}
