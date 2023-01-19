@@ -140,5 +140,10 @@ RDEPEND="
 		virtual/freedesktop-icon-theme
 	)
 "
+DEPEND="$RDEPEND"
 
-PDEPEND="virtual/notification-daemon:0"
+pkg_postinst() {
+	if use cups; then
+		rc-update add cupsd default
+	fi
+}
