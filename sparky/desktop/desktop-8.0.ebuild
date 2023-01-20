@@ -145,8 +145,8 @@ DEPEND="$RDEPEND"
 
 src_install() {
 	insinto /etc/profile.d
-	doins "${FILES}"/xdg_cache_home.sh
-	doins "${FILES}"/zzz_user_startx.sh
+	doins "${FILESDIR}"/xdg_cache_home.sh
+	doins "${FILESDIR}"/zzz_user_startx.sh
 }
 
 pkg_postinst() {

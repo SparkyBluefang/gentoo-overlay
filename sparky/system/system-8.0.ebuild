@@ -87,13 +87,13 @@ DEPEND="$RDEPEND"
 
 src_install() {
 	insinto /etc/bash/bashrc.d
-	doins "${FILES}"/aliases.sh
+	doins "${FILESDIR}"/aliases.sh
 
-	dobin "${FILES}"/wup
+	dobin "${FILESDIR}"/wup
 
 	if use thinkpad; then
 		exeinto /etc/local.d
-		doexe "${FILES}"/thinkpad_logo_led.start
+		doexe "${FILESDIR}"/thinkpad_logo_led.start
 	fi
 }
 
