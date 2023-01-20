@@ -34,6 +34,7 @@ RDEPEND="
 	sys-apps/nvme-cli
 	sys-apps/pciutils
 	sys-apps/usbutils
+	sys-apps/util-linux
 	sys-block/parted
 	sys-boot/grub
 	sys-kernel/gentoo-sources
@@ -88,6 +89,9 @@ DEPEND="$RDEPEND"
 src_install() {
 	insinto /etc/bash/bashrc.d
 	doins "${FILESDIR}"/aliases.sh
+
+	exeinto /etc/cron.daily
+	doexe "${FILESDIR}"/fstrim
 
 	dobin "${FILESDIR}"/wup
 

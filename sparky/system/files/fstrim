@@ -1,0 +1,3 @@
+#!/bin/sh
+/sbin/fstrim -a -v >> /var/log/fstrim.log
+echo "fstrim finished with: $?" >> /var/log/fstrim.log
