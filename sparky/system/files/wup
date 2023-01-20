@@ -1,0 +1,27 @@
+#!/bin/bash
+
+SKIP_SYNC=""
+
+for arg in $@; do
+	case $arg in
+		-s)
+			SKIP_SYNC="1"
+			shift
+			;;
+	esac
+done
+
+if [[ -z "$SKIP_SYNC" ]]; then
+	echo -e "\e[1;31mSyncing ...\e[m"
+	emaint sync -a
+	dispatch-conf
+fi
+
+echo -e "\e[1;31mChecking for updates ...\e[m"
+emerge -uDNav "$@" @world
+dispatch-conf
+
+echo -e "\e[1;31mChecking for broken packages ...\e[m"
+revdep-rebuild -i -- -av --keep-going
+dispatch-conf
+

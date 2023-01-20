@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI="7"
-PYTHON_COMPAT=( python3_{8,9,10,11} )
+PYTHON_COMPAT=( python3_{9,10,11} )
 
 SRC_URI=""
 DESCRIPTION="Various helpful system and user utilities"
@@ -12,7 +12,7 @@ LICENSE="BSD"
 
 SLOT="0"
 KEYWORDS="amd64 x86"
-IUSE="cpufreq firewall gentoo grub iptables nftables X"
+IUSE="cpufreq firewall grub iptables nftables X"
 
 inherit git-r3 python-single-r1
 
@@ -40,11 +40,6 @@ RDEPEND="
 		nftables? (
 			net-firewall/nftables
 		)
-	)
-
-	gentoo? (
-		app-portage/gentoolkit
-		sys-apps/portage
 	)
 
 	grub? (
@@ -76,15 +71,20 @@ src_install() {
 		fi
 	fi
 
-	if use gentoo; then
-		dobin gentoo/wup
-	fi
-
 	if use grub; then
 		dobin update-grub
 	fi
 
 	if use X; then
 		dobin update-xorg
+	fi
+}
+
+pkg_postinst() {
+	if use cpufreq; then
+		rc-update add cpufreqd boot
+	fi
+	if use firewall; then
+		rc-update add firewall boot
 	fi
 }

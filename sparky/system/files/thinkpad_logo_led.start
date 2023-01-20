@@ -1,0 +1,6 @@
+#!/bin/sh
+
+lid_logo_dot=/sys/class/leds/tpacpi\:\:lid_logo_dot
+if [ -d $lid_logo_dot ]; then
+	echo 0 > $lid_logo_dot/brightness
+fi

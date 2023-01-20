@@ -5,9 +5,9 @@ EAPI="7"
 
 SRC_URI=""
 DESCRIPTION="Meta ebuild for a desktop environment"
-HOMEPAGE=""
+HOMEPAGE="https://github.com/SparkyBluefang/gentoo-overlay"
 
-LICENSE="metapackage"
+LICENSE="BSD"
 
 SLOT="0"
 KEYWORDS="amd64 x86"
@@ -26,6 +26,7 @@ RDEPEND="
 	gnome-extra/gnome-calculator
 	gnome-extra/gnome-system-monitor
 	media-gfx/gnome-screenshot
+	sys-apps/coreutils
 	x11-base/xorg-server
 	x11-misc/xdg-user-dirs
 	x11-misc/xdg-user-dirs-gtk
@@ -141,6 +142,12 @@ RDEPEND="
 	)
 "
 DEPEND="$RDEPEND"
+
+src_install() {
+	insinto /etc/profile.d
+	doins "${FILES}"/xdg_cache_home.sh
+	doins "${FILES}"/zzz_user_startx.sh
+}
 
 pkg_postinst() {
 	if use cups; then

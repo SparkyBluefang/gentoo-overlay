@@ -5,13 +5,13 @@ EAPI="7"
 
 SRC_URI=""
 DESCRIPTION="Meta ebuild for a system environment"
-HOMEPAGE=""
+HOMEPAGE="https://github.com/SparkyBluefang/gentoo-overlay"
 
-LICENSE="metapackage"
+LICENSE="BSD"
 
 SLOT="0"
 KEYWORDS="amd64 x86"
-IUSE="acpi dbus elogind exfat fat hidpi intel ntfs portage"
+IUSE="acpi dbus elogind exfat fat hidpi intel ntfs portage thinkpad"
 
 S="${WORKDIR}"
 
@@ -85,6 +85,18 @@ RDEPEND="
 "
 DEPEND="$RDEPEND"
 
+src_install() {
+	insinto /etc/bash/bashrc.d
+	doins "${FILES}"/aliases.sh
+
+	dobin "${FILES}"/wup
+
+	if use thinkpad; then
+		exeinto /etc/local.d
+		doexe "${FILES}"/thinkpad_logo_led.start
+	fi
+}
+
 pkg_postinst() {
 	if use acpi; then
 		rc-update add acpid default
@@ -95,7 +107,6 @@ pkg_postinst() {
 	if use elogind; then
 		rc-update add elogind boot
 	fi
-	rc-update add firewall       boot
 	rc-update add consolefont    default
 	rc-update add cronie         default
 	rc-update add ddclient       default
