@@ -24,8 +24,8 @@ RDEPEND="
 	app-portage/gentoolkit
 	app-shells/bash-completion
 	app-vim/vim-spell-en
+	dev-python/virtualenv
 	media-sound/alsa-utils
-	net-dns/ddclient
 	net-dns/openresolv
 	net-misc/networkmanager
 	net-misc/ntp
@@ -57,8 +57,7 @@ RDEPEND="
 	)
 
 	exfat? (
-		sys-fs/exfat-utils
-		sys-fs/fuse-exfat
+		sys-fs/exfatprogs
 	)
 
 	fat? (
@@ -113,7 +112,6 @@ pkg_postinst() {
 	fi
 	rc-update add consolefont    default
 	rc-update add cronie         default
-	rc-update add ddclient       default
 	rc-update add gpm            default
 	rc-update add mcelog         default
 	rc-update add metalog        default
