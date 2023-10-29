@@ -27,6 +27,7 @@ RDEPEND="
 	gnome-extra/gnome-system-monitor
 	media-gfx/gnome-screenshot
 	sys-apps/coreutils
+	sys-libs/libutempter
 	x11-base/xorg-server
 	x11-misc/xdg-user-dirs
 	x11-misc/xdg-user-dirs-gtk
@@ -114,8 +115,8 @@ RDEPEND="
 		!minimal? (
 			media-gfx/gimp
 			media-sound/audacity
-			media-sound/moc
 			media-video/vlc
+			net-misc/gallery-dl
 			net-misc/yt-dlp
 		)
 	)
