@@ -2,9 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI="7"
-PYTHON_COMPAT=( python3_{9,10,11} )
+PYTHON_COMPAT=( python3_{9,10,11,12,13} )
 
-SRC_URI=""
 DESCRIPTION="Various helpful system and user utilities"
 HOMEPAGE="https://github.com/SparkyBluefang/unix-utils"
 
