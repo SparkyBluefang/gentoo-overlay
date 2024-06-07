@@ -10,7 +10,7 @@ HOMEPAGE="https://github.com/SparkyBluefang/unix-utils"
 LICENSE="BSD"
 
 SLOT="0"
-KEYWORDS="amd64 x86"
+KEYWORDS="amd64 ~arm64 x86"
 IUSE="cpufreq firewall grub iptables nftables X"
 
 inherit git-r3 python-single-r1
