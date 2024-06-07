@@ -3,14 +3,14 @@
 
 EAPI="7"
 
-SRC_URI=""
 DESCRIPTION="Meta ebuild for a desktop environment"
 HOMEPAGE="https://github.com/SparkyBluefang/gentoo-overlay"
+SRC_URI=""
 
 LICENSE="BSD"
 
 SLOT="0"
-KEYWORDS="amd64 x86"
+KEYWORDS="amd64 ~arm64 x86"
 IUSE="+archive cups disks +docs +fonts hplip +media minimal opengl pulseaudio scanner +themes"
 REQUIRED_USE="hplip? ( cups )"
 
@@ -37,29 +37,40 @@ RDEPEND="
 		app-arch/file-roller
 		app-arch/lha
 		app-arch/p7zip
-		app-arch/rar
 		gnome-extra/nemo-fileroller
+
+		!arm64? (
+			app-arch/rar
+		)
 	)
 
 	cups? (
 		net-print/cups[X]
+
 		hplip? (
 			net-print/hplip[scanner=,-X]
 		)
 	)
 
 	disks? (
-		sys-apps/gsmartcontrol
-		sys-apps/qdirstat
 		sys-block/gparted
+
+		!arm64? (
+			sys-apps/gsmartcontrol
+			sys-apps/qdirstat
+		)
 	)
 
 	docs? (
 		app-text/evince
+
 		!minimal? (
 			app-office/libreoffice
-			app-text/calibre
-			app-text/fbreader
+
+			!arm64? (
+				app-text/calibre
+				app-text/fbreader
+			)
 		)
 	)
 
@@ -67,8 +78,6 @@ RDEPEND="
 		media-fonts/corefonts
 		media-fonts/dejavu
 		media-fonts/kochi-substitute
-		media-fonts/mplus-fonts
-		media-fonts/mplus-outline-fonts
 		media-fonts/vlgothic
 
 		media-fonts/font-adobe-100dpi
@@ -106,11 +115,17 @@ RDEPEND="
 		media-fonts/font-sun-misc
 		media-fonts/font-winitzki-cyrillic
 		media-fonts/font-xfree86-type1
+
+		!arm64? (
+			media-fonts/mplus-fonts
+			media-fonts/mplus-outline-fonts
+		)
 	)
 
 	media? (
 		media-gfx/eog
 		media-video/mpv
+
 		!minimal? (
 			media-gfx/gimp
 			media-sound/audacity
@@ -131,6 +146,7 @@ RDEPEND="
 
 	scanner? (
 		media-gfx/sane-backends
+
 		!minimal? (
 			media-gfx/xsane
 		)
