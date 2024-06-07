@@ -3,20 +3,20 @@
 
 EAPI="7"
 
-SRC_URI=""
 DESCRIPTION="Meta ebuild for a system environment"
 HOMEPAGE="https://github.com/SparkyBluefang/gentoo-overlay"
+SRC_URI=""
 
 LICENSE="BSD"
 
 SLOT="0"
-KEYWORDS="amd64 x86"
+KEYWORDS="amd64 ~arm64 x86"
 IUSE="acpi dbus elogind exfat fat hidpi intel ntfs portage thinkpad"
+REQUIRED_USE="arm64? ( !intel )"
 
 S="${WORKDIR}"
 
 RDEPEND="
-	app-admin/mcelog
 	app-admin/metalog
 	app-editors/nano
 	app-editors/vim
@@ -48,6 +48,14 @@ RDEPEND="
 		sys-power/acpid
 	)
 
+	!arm64? (
+		app-admin/mcelog
+
+		intel? (
+			sys-firmware/intel-microcode
+		)
+	)
+	
 	dbus? (
 		sys-apps/dbus
 	)
@@ -67,10 +75,6 @@ RDEPEND="
 
 	hidpi? (
 		media-fonts/terminus-font
-	)
-
-	intel? (
-		sys-firmware/intel-microcode
 	)
 
 	ntfs? (
@@ -104,6 +108,9 @@ pkg_postinst() {
 	if use acpi; then
 		rc-update add acpid default
 	fi
+	if ! use arm64; then
+		rc-update add mcelog default
+	fi
 	if use dbus; then
 		rc-update add dbus default
 	fi
@@ -113,7 +120,6 @@ pkg_postinst() {
 	rc-update add consolefont    default
 	rc-update add cronie         default
 	rc-update add gpm            default
-	rc-update add mcelog         default
 	rc-update add metalog        default
 	rc-update add NetworkManager default
 	rc-update add ntpd           default
