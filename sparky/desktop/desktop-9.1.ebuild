@@ -6,6 +6,8 @@ EAPI="8"
 DESCRIPTION="Meta ebuild for a desktop environment"
 HOMEPAGE="https://github.com/SparkyBluefang/gentoo-overlay"
 
+S="${WORKDIR}"
+
 LICENSE="BSD"
 
 SLOT="0"
