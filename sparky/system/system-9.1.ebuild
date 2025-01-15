@@ -5,16 +5,13 @@ EAPI="7"
 
 DESCRIPTION="Meta ebuild for a system environment"
 HOMEPAGE="https://github.com/SparkyBluefang/gentoo-overlay"
-SRC_URI=""
 
 LICENSE="BSD"
 
 SLOT="0"
-KEYWORDS="amd64 ~arm64 x86"
+KEYWORDS="amd64 ~arm64"
 IUSE="acpi dbus elogind exfat fat hidpi intel ntfs portage thinkpad"
 REQUIRED_USE="arm64? ( !intel )"
-
-S="${WORKDIR}"
 
 RDEPEND="
 	app-admin/metalog
@@ -55,7 +52,7 @@ RDEPEND="
 			sys-firmware/intel-microcode
 		)
 	)
-	
+
 	dbus? (
 		sys-apps/dbus
 	)
