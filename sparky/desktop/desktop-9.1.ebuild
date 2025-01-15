@@ -5,16 +5,13 @@ EAPI="7"
 
 DESCRIPTION="Meta ebuild for a desktop environment"
 HOMEPAGE="https://github.com/SparkyBluefang/gentoo-overlay"
-SRC_URI=""
 
 LICENSE="BSD"
 
 SLOT="0"
-KEYWORDS="amd64 ~arm64 x86"
+KEYWORDS="amd64 ~arm64"
 IUSE="+archive cups disks +docs +fonts hplip +media minimal opengl pulseaudio scanner +themes"
 REQUIRED_USE="hplip? ( cups )"
-
-S="${WORKDIR}"
 
 RDEPEND="
 	app-admin/conky
@@ -69,7 +66,6 @@ RDEPEND="
 
 			!arm64? (
 				app-text/calibre
-				app-text/fbreader
 			)
 		)
 	)
