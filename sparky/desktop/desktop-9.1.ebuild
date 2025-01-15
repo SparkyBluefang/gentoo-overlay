@@ -1,7 +1,7 @@
 # Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI="7"
+EAPI="8"
 
 DESCRIPTION="Meta ebuild for a desktop environment"
 HOMEPAGE="https://github.com/SparkyBluefang/gentoo-overlay"
@@ -152,7 +152,6 @@ RDEPEND="
 		virtual/freedesktop-icon-theme
 	)
 "
-DEPEND="$RDEPEND"
 
 src_install() {
 	insinto /etc/profile.d
