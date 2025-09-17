@@ -139,7 +139,7 @@ RDEPEND="
 
 	pulseaudio? (
 		media-sound/pavucontrol
-		media-sound/pulseaudio
+		media-sound/pulseaudio-daemon
 	)
 
 	scanner? (
