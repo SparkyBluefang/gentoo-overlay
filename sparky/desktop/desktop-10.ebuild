@@ -12,7 +12,7 @@ LICENSE="BSD"
 
 SLOT="0"
 KEYWORDS="amd64 ~arm64"
-IUSE="+archive cups disks +docs +fonts hplip +media minimal opengl pulseaudio scanner +themes"
+IUSE="+archive cups disks +docs +fonts hplip +media minimal opengl pipewire pulseaudio scanner +themes"
 REQUIRED_USE="hplip? ( cups )"
 
 RDEPEND="
@@ -137,9 +137,15 @@ RDEPEND="
 		x11-apps/mesa-progs
 	)
 
+	pipewire? (
+		 media-video/pipewire[sound-server]
+	)
+
 	pulseaudio? (
 		media-sound/pavucontrol
-		media-sound/pulseaudio-daemon
+		!pipewire? (
+			media-sound/pulseaudio-daemon
+		)
 	)
 
 	scanner? (
