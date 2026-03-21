@@ -1,4 +1,4 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI="8"
@@ -12,7 +12,7 @@ LICENSE="BSD"
 
 SLOT="0"
 KEYWORDS="amd64 ~arm64"
-IUSE="acpi dbus elogind exfat fat hidpi intel ntfs portage thinkpad"
+IUSE="acpi dbus elogind exfat fat hidpi intel networkmanager ntfs portage thinkpad"
 REQUIRED_USE="arm64? ( !intel )"
 
 RDEPEND="
@@ -26,7 +26,6 @@ RDEPEND="
 	dev-python/virtualenv
 	media-sound/alsa-utils
 	net-dns/openresolv
-	net-misc/networkmanager
 	net-misc/ntp
 	sparky/unix-utils
 	sys-apps/hdparm
@@ -74,6 +73,10 @@ RDEPEND="
 
 	hidpi? (
 		media-fonts/terminus-font
+	)
+
+	networkmanager? (
+		net-misc/networkmanager
 	)
 
 	ntfs? (
