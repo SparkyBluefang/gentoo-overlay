@@ -1,8 +1,8 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI="7"
-PYTHON_COMPAT=( python3_{9,10,11,12,13} )
+EAPI="8"
+PYTHON_COMPAT=( python3_{11..14} )
 
 DESCRIPTION="Various helpful system and user utilities"
 HOMEPAGE="https://github.com/SparkyBluefang/unix-utils"
@@ -10,7 +10,7 @@ HOMEPAGE="https://github.com/SparkyBluefang/unix-utils"
 LICENSE="BSD"
 
 SLOT="0"
-KEYWORDS="amd64 ~arm64 x86"
+KEYWORDS="amd64 arm64 x86"
 IUSE="cpufreq firewall grub iptables nftables X"
 
 inherit git-r3 python-single-r1
