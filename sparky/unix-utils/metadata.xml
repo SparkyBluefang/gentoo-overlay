@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<upstream>
+		<remote-id type="github">SparkyBluefang/unix-utils</remote-id>
+	</upstream>
+	<use>
+		<flag name="cpufreq">Add CPU thermal management via <pkg>sys-power/cpupower</pkg></flag>
+		<flag name="firewall">Add firewall management init scripts</flag>
+		<flag name="grub">Add boot support via <pkg>sys-boot/grub</pkg></flag>
+		<flag name="iptables">Add firewall support via <pkg>net-firewall/iptables</pkg></flag>
+		<flag name="nftables">Add firewall support via <pkg>net-firewall/nftables</pkg></flag>
+	</use>
+</pkgmetadata>
