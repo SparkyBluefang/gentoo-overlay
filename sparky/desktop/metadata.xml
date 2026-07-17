@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<upstream>
+		<remote-id type="github">SparkyBluefang/gentoo-overlay</remote-id>
+	</upstream>
+	<use>
+		<flag name="disks">Add disk management tools</flag>
+		<flag name="docs">Support viewing and editing common documents</flag>
+		<flag name="fonts">Add common fonts</flag>
+		<flag name="hplip">Add legacy HP support via <pkg>net-print/hplip</pkg></flag>
+		<flag name="media">Support viewing and editing common media</flag>
+		<flag name="pipewire">Add sound server support via <pkg>media-video/pipewire</pkg></flag>
+		<flag name="themes">Common FDO theme support</flag>
+	</use>
+</pkgmetadata>

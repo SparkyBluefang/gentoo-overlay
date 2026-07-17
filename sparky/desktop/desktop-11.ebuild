@@ -11,19 +11,21 @@ S="${WORKDIR}"
 LICENSE="BSD"
 
 SLOT="0"
-KEYWORDS="amd64 ~arm64"
-IUSE="+archive cups disks +docs +fonts hplip +media minimal opengl pipewire pulseaudio scanner +themes"
+KEYWORDS="~amd64 ~arm64"
+IUSE="cups disks +docs +fonts hplip +media minimal opengl pipewire pulseaudio scanner +themes"
 REQUIRED_USE="hplip? ( cups )"
 
 RDEPEND="
 	app-admin/conky
 	app-admin/keepassxc
+	app-arch/file-roller
 	app-crypt/seahorse
 	app-editors/gedit
 	gnome-base/dconf-editor
 	gnome-extra/cinnamon
 	gnome-extra/gnome-calculator
 	gnome-extra/gnome-system-monitor
+	gnome-extra/nemo-fileroller
 	media-gfx/gnome-screenshot
 	sys-apps/coreutils
 	x11-base/xorg-server
@@ -31,17 +33,6 @@ RDEPEND="
 	x11-misc/xdg-user-dirs-gtk
 	x11-terms/gnome-terminal
 	x11-terms/guake
-
-	archive? (
-		app-arch/file-roller
-		app-arch/lha
-		app-arch/p7zip
-		gnome-extra/nemo-fileroller
-
-		!arm64? (
-			app-arch/rar
-		)
-	)
 
 	cups? (
 		net-print/cups[X]
@@ -65,10 +56,6 @@ RDEPEND="
 
 		!minimal? (
 			app-office/libreoffice
-
-			!arm64? (
-				app-text/calibre
-			)
 		)
 	)
 
@@ -143,6 +130,7 @@ RDEPEND="
 
 	pulseaudio? (
 		media-sound/pavucontrol
+
 		!pipewire? (
 			media-sound/pulseaudio-daemon
 		)
