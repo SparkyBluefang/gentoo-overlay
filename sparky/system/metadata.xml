@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<upstream>
+		<remote-id type="github">SparkyBluefang/gentoo-overlay</remote-id>
+	</upstream>
+	<use>
+		<flag name="7zip">Add various archive support via <pkg>app-arch/7zip</pkg></flag>
+		<flag name="exfat">Add exfat file system support via <pkg>sys-fs/exfatprogs</pkg></flag>
+		<flag name="fat">Add fat file system support via <pkg>sys-fs/dosfstools</pkg> and <pkg>sys-fs/mtools</pkg></flag>
+		<flag name="hidpi">Add hidpi conole fonts via <pkg>media-fonts/terminus-font</pkg></flag>
+		<flag name="intel">Add intel microcode via <pkg>sys-firmware/intel-microcode</pkg></flag>
+		<flag name="lha">Add lzh archive support via <pkg>app-arch/lha</pkg></flag>
+		<flag name="ntfs">Add ntfs file system support via <pkg>sys-fs/ntfs3g</pkg></flag>
+		<flag name="portage">Add ebuild development tools</flag>
+		<flag name="rar">Add rar archive support via <pkg>app-arch/rar</pkg></flag>
+		<flag name="thinkpad">Disable thinkpad logo LED</flag>
+	</use>
+</pkgmetadata>

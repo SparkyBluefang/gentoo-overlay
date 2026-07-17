@@ -12,7 +12,7 @@ LICENSE="BSD"
 
 SLOT="0"
 KEYWORDS="amd64 ~arm64"
-IUSE="acpi dbus elogind exfat fat hidpi intel networkmanager ntfs portage thinkpad"
+IUSE="+7zip acpi dbus elogind exfat fat hidpi intel lha networkmanager ntfs portage rar thinkpad"
 REQUIRED_USE="arm64? ( !intel )"
 
 RDEPEND="
@@ -41,6 +41,10 @@ RDEPEND="
 	sys-process/cronie
 	sys-process/lsof
 	www-client/links[fbcon,-X]
+
+	7zip? (
+		app-arch/7zip[rar=]
+	)
 
 	acpi? (
 		sys-power/acpid
@@ -75,6 +79,10 @@ RDEPEND="
 		media-fonts/terminus-font
 	)
 
+	lha? (
+		app-arch/lha
+	)
+
 	networkmanager? (
 		net-misc/networkmanager
 	)
@@ -87,6 +95,10 @@ RDEPEND="
 		app-portage/iwdevtools
 		dev-util/pkgcheck
 		dev-util/pkgdev
+	)
+
+	rar? (
+		|| ( app-arch/rar app-arch/unrar )
 	)
 "
 
