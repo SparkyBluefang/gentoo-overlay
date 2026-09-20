@@ -17,7 +17,7 @@ REQUIRED_USE="hplip? ( cups )"
 
 RDEPEND="
 	app-admin/conky
-	app-admin/keepassxc
+	|| ( app-admin/chipass app-admin/keepassxc )
 	app-arch/file-roller
 	app-crypt/seahorse
 	app-editors/gedit
