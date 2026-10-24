@@ -11,7 +11,7 @@ LICENSE="BSD"
 
 SLOT="0"
 KEYWORDS="amd64 arm64"
-IUSE="cpufreq firewall grub iptables nftables X"
+IUSE="cpufreq firewall gimp grub iptables nftables X"
 
 inherit git-r3 python-single-r1
 
@@ -41,6 +41,10 @@ RDEPEND="
 		)
 	)
 
+	gimp? (
+		>=media-gfx/gimp-3.0.0
+	)
+
 	grub? (
 		sys-boot/grub:2
 	)
@@ -68,6 +72,13 @@ src_install() {
 		if use nftables; then
 			newinitd firewall/firewall.nftables.init firewall
 		fi
+	fi
+
+	if use gimp; then
+		dobin gimp3-thumbnailer
+
+		insinto /usr/share/thumbnailers/
+		doins gimp3-thumbnailer.thumbnailer
 	fi
 
 	if use grub; then
